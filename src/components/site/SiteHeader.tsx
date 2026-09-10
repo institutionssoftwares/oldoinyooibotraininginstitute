@@ -1,13 +1,47 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { Menu, X, Phone } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Menu, X, Phone, LogOut } from "lucide-react";
 
 import logo from "@/assets/ooti-logo.asset.json";
 import { INSTITUTION, NAV_LINKS } from "@/lib/site";
 import { Button } from "@/components/ui/button";
+import { useSession } from "@/hooks/use-session";
+import { supabase } from "@/integrations/supabase/client";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { session } = useSession();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const signOut = async () => {
+    setOpen(false);
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/login", replace: true });
+  };
+
+  const portalButton = (size: "sm" | "default") =>
+    session ? (
+      <>
+        <Button asChild variant="outline" size={size}>
+          <Link to="/portal" onClick={() => setOpen(false)}>
+            My Portal
+          </Link>
+        </Button>
+        <Button variant="ghost" size={size} onClick={signOut} aria-label="Sign out">
+          <LogOut className="size-4" /> Sign out
+        </Button>
+      </>
+    ) : (
+      <Button asChild variant="outline" size={size}>
+        <Link to="/login" onClick={() => setOpen(false)}>
+          Student Portal
+        </Link>
+      </Button>
+    );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/70 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -59,9 +93,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <Button asChild variant="outline" size="sm">
-            <Link to="/login">Student Portal</Link>
-          </Button>
+          {portalButton("sm")}
           <Button asChild variant="gold" size="sm">
             <Link to="/apply">Apply Now</Link>
           </Button>
@@ -91,12 +123,8 @@ export function SiteHeader() {
                 {link.label}
               </Link>
             ))}
-            <div className="mt-2 grid grid-cols-2 gap-2">
-              <Button asChild variant="outline">
-                <Link to="/login" onClick={() => setOpen(false)}>
-                  Student Portal
-                </Link>
-              </Button>
+            <div className="mt-2 flex flex-wrap gap-2 [&>*]:flex-1">
+              {portalButton("default")}
               <Button asChild variant="gold">
                 <Link to="/apply" onClick={() => setOpen(false)}>
                   Apply Now

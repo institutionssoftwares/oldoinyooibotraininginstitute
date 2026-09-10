@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 
@@ -9,7 +9,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/ooti-logo.asset.json";
 
+function safeRedirect(value: unknown): string | undefined {
+  return typeof value === "string" && value.startsWith("/") && !value.startsWith("//")
+    ? value
+    : undefined;
+}
+
 export const Route = createFileRoute("/login")({
+  validateSearch: (search: Record<string, unknown>): { redirect?: string } => {
+    const r = safeRedirect(search["redirect"]);
+    return r ? { redirect: r } : {};
+  },
   head: () => ({
     meta: [
       { title: "Portal Login | OOTI Loitokitok" },
@@ -27,7 +37,14 @@ export const Route = createFileRoute("/login")({
 
 function Login() {
   const navigate = useNavigate();
+  const { redirect } = Route.useSearch();
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) navigate({ to: redirect ?? "/portal", replace: true });
+    });
+  }, [navigate, redirect]);
 
   const signIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,11 +56,15 @@ function Login() {
     });
     setBusy(false);
     if (error) {
-      toast.error(error.message);
+      toast.error(
+        /invalid login credentials/i.test(error.message)
+          ? "Incorrect email or password."
+          : error.message,
+      );
       return;
     }
     toast.success("Signed in");
-    navigate({ to: "/" });
+    navigate({ to: redirect ?? "/portal", replace: true });
   };
 
   const signUp = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,7 +75,7 @@ function Login() {
       email: String(form.get("email") ?? "").trim(),
       password: String(form.get("password") ?? ""),
       options: {
-        emailRedirectTo: `${window.location.origin}/`,
+        emailRedirectTo: `${window.location.origin}/portal`,
         data: { full_name: String(form.get("full_name") ?? "").trim() },
       },
     });
