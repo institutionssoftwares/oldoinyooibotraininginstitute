@@ -13,8 +13,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as MissionRouteImport } from './routes/mission'
 import { Route as VisionRouteImport } from './routes/vision'
+import { Route as CoursesIndexRouteImport } from './routes/courses/index'
+import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
 import { Route as DepartmentsIndexRouteImport } from './routes/departments/index'
 import { Route as DepartmentsSlugRouteImport } from './routes/departments/$slug'
+import { Route as DigitalSkillsIndexRouteImport } from './routes/digital-skills/index'
+import { Route as DigitalSkillsSlugRouteImport } from './routes/digital-skills/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -36,6 +40,16 @@ const VisionRoute = VisionRouteImport.update({
   path: '/vision',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoursesIndexRoute = CoursesIndexRouteImport.update({
+  id: '/courses/',
+  path: '/courses/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesSlugRoute = CoursesSlugRouteImport.update({
+  id: '/courses/$slug',
+  path: '/courses/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DepartmentsIndexRoute = DepartmentsIndexRouteImport.update({
   id: '/departments/',
   path: '/departments/',
@@ -46,22 +60,40 @@ const DepartmentsSlugRoute = DepartmentsSlugRouteImport.update({
   path: '/departments/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DigitalSkillsIndexRoute = DigitalSkillsIndexRouteImport.update({
+  id: '/digital-skills/',
+  path: '/digital-skills/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DigitalSkillsSlugRoute = DigitalSkillsSlugRouteImport.update({
+  id: '/digital-skills/$slug',
+  path: '/digital-skills/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/mission': typeof MissionRoute
   '/vision': typeof VisionRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
+  '/digital-skills/$slug': typeof DigitalSkillsSlugRoute
+  '/courses/': typeof CoursesIndexRoute
   '/departments/': typeof DepartmentsIndexRoute
+  '/digital-skills/': typeof DigitalSkillsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/mission': typeof MissionRoute
   '/vision': typeof VisionRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
+  '/digital-skills/$slug': typeof DigitalSkillsSlugRoute
+  '/courses': typeof CoursesIndexRoute
   '/departments': typeof DepartmentsIndexRoute
+  '/digital-skills': typeof DigitalSkillsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +101,12 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/mission': typeof MissionRoute
   '/vision': typeof VisionRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
+  '/digital-skills/$slug': typeof DigitalSkillsSlugRoute
+  '/courses/': typeof CoursesIndexRoute
   '/departments/': typeof DepartmentsIndexRoute
+  '/digital-skills/': typeof DigitalSkillsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,24 +115,36 @@ export interface FileRouteTypes {
     | '/about'
     | '/mission'
     | '/vision'
+    | '/courses/$slug'
     | '/departments/$slug'
+    | '/digital-skills/$slug'
+    | '/courses/'
     | '/departments/'
+    | '/digital-skills/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/mission'
     | '/vision'
+    | '/courses/$slug'
     | '/departments/$slug'
+    | '/digital-skills/$slug'
+    | '/courses'
     | '/departments'
+    | '/digital-skills'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/mission'
     | '/vision'
+    | '/courses/$slug'
     | '/departments/$slug'
+    | '/digital-skills/$slug'
+    | '/courses/'
     | '/departments/'
+    | '/digital-skills/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -104,8 +152,12 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   MissionRoute: typeof MissionRoute
   VisionRoute: typeof VisionRoute
+  CoursesSlugRoute: typeof CoursesSlugRoute
   DepartmentsSlugRoute: typeof DepartmentsSlugRoute
+  DigitalSkillsSlugRoute: typeof DigitalSkillsSlugRoute
+  CoursesIndexRoute: typeof CoursesIndexRoute
   DepartmentsIndexRoute: typeof DepartmentsIndexRoute
+  DigitalSkillsIndexRoute: typeof DigitalSkillsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -138,6 +190,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VisionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/courses/': {
+      id: '/courses/'
+      path: '/courses'
+      fullPath: '/courses/'
+      preLoaderRoute: typeof CoursesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses/$slug': {
+      id: '/courses/$slug'
+      path: '/courses/$slug'
+      fullPath: '/courses/$slug'
+      preLoaderRoute: typeof CoursesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/departments/': {
       id: '/departments/'
       path: '/departments'
@@ -152,6 +218,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DepartmentsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/digital-skills/': {
+      id: '/digital-skills/'
+      path: '/digital-skills'
+      fullPath: '/digital-skills/'
+      preLoaderRoute: typeof DigitalSkillsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/digital-skills/$slug': {
+      id: '/digital-skills/$slug'
+      path: '/digital-skills/$slug'
+      fullPath: '/digital-skills/$slug'
+      preLoaderRoute: typeof DigitalSkillsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -160,8 +240,12 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   MissionRoute: MissionRoute,
   VisionRoute: VisionRoute,
+  CoursesSlugRoute: CoursesSlugRoute,
   DepartmentsSlugRoute: DepartmentsSlugRoute,
+  DigitalSkillsSlugRoute: DigitalSkillsSlugRoute,
+  CoursesIndexRoute: CoursesIndexRoute,
   DepartmentsIndexRoute: DepartmentsIndexRoute,
+  DigitalSkillsIndexRoute: DigitalSkillsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
