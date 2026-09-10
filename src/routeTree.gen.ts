@@ -15,7 +15,12 @@ import { Route as AdmissionsRouteImport } from './routes/admissions'
 import { Route as ApplicationStatusRouteImport } from './routes/application-status'
 import { Route as ApplyRouteImport } from './routes/apply'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DownloadsRouteImport } from './routes/downloads'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as MissionRouteImport } from './routes/mission'
+import { Route as StaffRouteImport } from './routes/staff'
+import { Route as StudentSuccessRouteImport } from './routes/student-success'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as CoursesIndexRouteImport } from './routes/courses/index'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
@@ -60,9 +65,34 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MissionRoute = MissionRouteImport.update({
   id: '/mission',
   path: '/mission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffRoute = StaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentSuccessRoute = StudentSuccessRouteImport.update({
+  id: '/student-success',
+  path: '/student-success',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VisionRoute = VisionRouteImport.update({
@@ -138,7 +168,12 @@ export interface FileRoutesByFullPath {
   '/application-status': typeof ApplicationStatusRoute
   '/apply': typeof ApplyRoute
   '/contact': typeof ContactRoute
+  '/downloads': typeof DownloadsRoute
+  '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/mission': typeof MissionRoute
+  '/staff': typeof StaffRoute
+  '/student-success': typeof StudentSuccessRoute
   '/vision': typeof VisionRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
@@ -160,7 +195,12 @@ export interface FileRoutesByTo {
   '/application-status': typeof ApplicationStatusRoute
   '/apply': typeof ApplyRoute
   '/contact': typeof ContactRoute
+  '/downloads': typeof DownloadsRoute
+  '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/mission': typeof MissionRoute
+  '/staff': typeof StaffRoute
+  '/student-success': typeof StudentSuccessRoute
   '/vision': typeof VisionRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
@@ -183,7 +223,12 @@ export interface FileRoutesById {
   '/application-status': typeof ApplicationStatusRoute
   '/apply': typeof ApplyRoute
   '/contact': typeof ContactRoute
+  '/downloads': typeof DownloadsRoute
+  '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
   '/mission': typeof MissionRoute
+  '/staff': typeof StaffRoute
+  '/student-success': typeof StudentSuccessRoute
   '/vision': typeof VisionRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
@@ -207,7 +252,12 @@ export interface FileRouteTypes {
     | '/application-status'
     | '/apply'
     | '/contact'
+    | '/downloads'
+    | '/faq'
+    | '/login'
     | '/mission'
+    | '/staff'
+    | '/student-success'
     | '/vision'
     | '/courses/$slug'
     | '/departments/$slug'
@@ -229,7 +279,12 @@ export interface FileRouteTypes {
     | '/application-status'
     | '/apply'
     | '/contact'
+    | '/downloads'
+    | '/faq'
+    | '/login'
     | '/mission'
+    | '/staff'
+    | '/student-success'
     | '/vision'
     | '/courses/$slug'
     | '/departments/$slug'
@@ -251,7 +306,12 @@ export interface FileRouteTypes {
     | '/application-status'
     | '/apply'
     | '/contact'
+    | '/downloads'
+    | '/faq'
+    | '/login'
     | '/mission'
+    | '/staff'
+    | '/student-success'
     | '/vision'
     | '/courses/$slug'
     | '/departments/$slug'
@@ -274,7 +334,12 @@ export interface RootRouteChildren {
   ApplicationStatusRoute: typeof ApplicationStatusRoute
   ApplyRoute: typeof ApplyRoute
   ContactRoute: typeof ContactRoute
+  DownloadsRoute: typeof DownloadsRoute
+  FaqRoute: typeof FaqRoute
+  LoginRoute: typeof LoginRoute
   MissionRoute: typeof MissionRoute
+  StaffRoute: typeof StaffRoute
+  StudentSuccessRoute: typeof StudentSuccessRoute
   VisionRoute: typeof VisionRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
   DepartmentsSlugRoute: typeof DepartmentsSlugRoute
@@ -334,11 +399,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mission': {
       id: '/mission'
       path: '/mission'
       fullPath: '/mission'
       preLoaderRoute: typeof MissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff': {
+      id: '/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student-success': {
+      id: '/student-success'
+      path: '/student-success'
+      fullPath: '/student-success'
+      preLoaderRoute: typeof StudentSuccessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vision': {
@@ -442,7 +542,12 @@ const rootRouteChildren: RootRouteChildren = {
   ApplicationStatusRoute: ApplicationStatusRoute,
   ApplyRoute: ApplyRoute,
   ContactRoute: ContactRoute,
+  DownloadsRoute: DownloadsRoute,
+  FaqRoute: FaqRoute,
+  LoginRoute: LoginRoute,
   MissionRoute: MissionRoute,
+  StaffRoute: StaffRoute,
+  StudentSuccessRoute: StudentSuccessRoute,
   VisionRoute: VisionRoute,
   CoursesSlugRoute: CoursesSlugRoute,
   DepartmentsSlugRoute: DepartmentsSlugRoute,
