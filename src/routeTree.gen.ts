@@ -21,6 +21,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as MissionRouteImport } from './routes/mission'
 import { Route as StaffRouteImport } from './routes/staff'
 import { Route as StudentSuccessRouteImport } from './routes/student-success'
+import { Route as VerifyCertificateRouteImport } from './routes/verify-certificate'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as CoursesIndexRouteImport } from './routes/courses/index'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
@@ -93,6 +94,11 @@ const StaffRoute = StaffRouteImport.update({
 const StudentSuccessRoute = StudentSuccessRouteImport.update({
   id: '/student-success',
   path: '/student-success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyCertificateRoute = VerifyCertificateRouteImport.update({
+  id: '/verify-certificate',
+  path: '/verify-certificate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VisionRoute = VisionRouteImport.update({
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/mission': typeof MissionRoute
   '/staff': typeof StaffRoute
   '/student-success': typeof StudentSuccessRoute
+  '/verify-certificate': typeof VerifyCertificateRoute
   '/vision': typeof VisionRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
@@ -201,6 +208,7 @@ export interface FileRoutesByTo {
   '/mission': typeof MissionRoute
   '/staff': typeof StaffRoute
   '/student-success': typeof StudentSuccessRoute
+  '/verify-certificate': typeof VerifyCertificateRoute
   '/vision': typeof VisionRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
@@ -229,6 +237,7 @@ export interface FileRoutesById {
   '/mission': typeof MissionRoute
   '/staff': typeof StaffRoute
   '/student-success': typeof StudentSuccessRoute
+  '/verify-certificate': typeof VerifyCertificateRoute
   '/vision': typeof VisionRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
@@ -258,6 +267,7 @@ export interface FileRouteTypes {
     | '/mission'
     | '/staff'
     | '/student-success'
+    | '/verify-certificate'
     | '/vision'
     | '/courses/$slug'
     | '/departments/$slug'
@@ -285,6 +295,7 @@ export interface FileRouteTypes {
     | '/mission'
     | '/staff'
     | '/student-success'
+    | '/verify-certificate'
     | '/vision'
     | '/courses/$slug'
     | '/departments/$slug'
@@ -312,6 +323,7 @@ export interface FileRouteTypes {
     | '/mission'
     | '/staff'
     | '/student-success'
+    | '/verify-certificate'
     | '/vision'
     | '/courses/$slug'
     | '/departments/$slug'
@@ -340,6 +352,7 @@ export interface RootRouteChildren {
   MissionRoute: typeof MissionRoute
   StaffRoute: typeof StaffRoute
   StudentSuccessRoute: typeof StudentSuccessRoute
+  VerifyCertificateRoute: typeof VerifyCertificateRoute
   VisionRoute: typeof VisionRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
   DepartmentsSlugRoute: typeof DepartmentsSlugRoute
@@ -439,6 +452,13 @@ declare module '@tanstack/react-router' {
       path: '/student-success'
       fullPath: '/student-success'
       preLoaderRoute: typeof StudentSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify-certificate': {
+      id: '/verify-certificate'
+      path: '/verify-certificate'
+      fullPath: '/verify-certificate'
+      preLoaderRoute: typeof VerifyCertificateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vision': {
@@ -548,6 +568,7 @@ const rootRouteChildren: RootRouteChildren = {
   MissionRoute: MissionRoute,
   StaffRoute: StaffRoute,
   StudentSuccessRoute: StudentSuccessRoute,
+  VerifyCertificateRoute: VerifyCertificateRoute,
   VisionRoute: VisionRoute,
   CoursesSlugRoute: CoursesSlugRoute,
   DepartmentsSlugRoute: DepartmentsSlugRoute,
