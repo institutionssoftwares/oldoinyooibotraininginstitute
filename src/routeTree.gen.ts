@@ -10,33 +10,362 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdmissionsRouteImport } from './routes/admissions'
+import { Route as ApplicationStatusRouteImport } from './routes/application-status'
+import { Route as ApplyRouteImport } from './routes/apply'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DownloadsRouteImport } from './routes/downloads'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as MissionRouteImport } from './routes/mission'
+import { Route as StaffRouteImport } from './routes/staff'
+import { Route as StudentSuccessRouteImport } from './routes/student-success'
+import { Route as VerifyCertificateRouteImport } from './routes/verify-certificate'
+import { Route as VisionRouteImport } from './routes/vision'
+import { Route as CoursesIndexRouteImport } from './routes/courses/index'
+import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
+import { Route as DepartmentsIndexRouteImport } from './routes/departments/index'
+import { Route as DepartmentsSlugRouteImport } from './routes/departments/$slug'
+import { Route as DigitalSkillsIndexRouteImport } from './routes/digital-skills/index'
+import { Route as DigitalSkillsSlugRouteImport } from './routes/digital-skills/$slug'
+import { Route as EventsIndexRouteImport } from './routes/events/index'
+import { Route as EventsSlugRouteImport } from './routes/events/$slug'
+import { Route as GalleryIndexRouteImport } from './routes/gallery/index'
+import { Route as GallerySlugRouteImport } from './routes/gallery/$slug'
+import { Route as NewsIndexRouteImport } from './routes/news/index'
+import { Route as NewsSlugRouteImport } from './routes/news/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsRoute = AdmissionsRouteImport.update({
+  id: '/admissions',
+  path: '/admissions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplicationStatusRoute = ApplicationStatusRouteImport.update({
+  id: '/application-status',
+  path: '/application-status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplyRoute = ApplyRouteImport.update({
+  id: '/apply',
+  path: '/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissionRoute = MissionRouteImport.update({
+  id: '/mission',
+  path: '/mission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffRoute = StaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentSuccessRoute = StudentSuccessRouteImport.update({
+  id: '/student-success',
+  path: '/student-success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyCertificateRoute = VerifyCertificateRouteImport.update({
+  id: '/verify-certificate',
+  path: '/verify-certificate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VisionRoute = VisionRouteImport.update({
+  id: '/vision',
+  path: '/vision',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesIndexRoute = CoursesIndexRouteImport.update({
+  id: '/courses/',
+  path: '/courses/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesSlugRoute = CoursesSlugRouteImport.update({
+  id: '/courses/$slug',
+  path: '/courses/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DepartmentsIndexRoute = DepartmentsIndexRouteImport.update({
+  id: '/departments/',
+  path: '/departments/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DepartmentsSlugRoute = DepartmentsSlugRouteImport.update({
+  id: '/departments/$slug',
+  path: '/departments/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DigitalSkillsIndexRoute = DigitalSkillsIndexRouteImport.update({
+  id: '/digital-skills/',
+  path: '/digital-skills/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DigitalSkillsSlugRoute = DigitalSkillsSlugRouteImport.update({
+  id: '/digital-skills/$slug',
+  path: '/digital-skills/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsIndexRoute = EventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsSlugRoute = EventsSlugRouteImport.update({
+  id: '/events/$slug',
+  path: '/events/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryIndexRoute = GalleryIndexRouteImport.update({
+  id: '/gallery/',
+  path: '/gallery/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GallerySlugRoute = GallerySlugRouteImport.update({
+  id: '/gallery/$slug',
+  path: '/gallery/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsIndexRoute = NewsIndexRouteImport.update({
+  id: '/news/',
+  path: '/news/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsSlugRoute = NewsSlugRouteImport.update({
+  id: '/news/$slug',
+  path: '/news/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/application-status': typeof ApplicationStatusRoute
+  '/apply': typeof ApplyRoute
+  '/contact': typeof ContactRoute
+  '/downloads': typeof DownloadsRoute
+  '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
+  '/mission': typeof MissionRoute
+  '/staff': typeof StaffRoute
+  '/student-success': typeof StudentSuccessRoute
+  '/verify-certificate': typeof VerifyCertificateRoute
+  '/vision': typeof VisionRoute
+  '/courses/$slug': typeof CoursesSlugRoute
+  '/departments/$slug': typeof DepartmentsSlugRoute
+  '/digital-skills/$slug': typeof DigitalSkillsSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/gallery/$slug': typeof GallerySlugRoute
+  '/news/$slug': typeof NewsSlugRoute
+  '/courses/': typeof CoursesIndexRoute
+  '/departments/': typeof DepartmentsIndexRoute
+  '/digital-skills/': typeof DigitalSkillsIndexRoute
+  '/events/': typeof EventsIndexRoute
+  '/gallery/': typeof GalleryIndexRoute
+  '/news/': typeof NewsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/application-status': typeof ApplicationStatusRoute
+  '/apply': typeof ApplyRoute
+  '/contact': typeof ContactRoute
+  '/downloads': typeof DownloadsRoute
+  '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
+  '/mission': typeof MissionRoute
+  '/staff': typeof StaffRoute
+  '/student-success': typeof StudentSuccessRoute
+  '/verify-certificate': typeof VerifyCertificateRoute
+  '/vision': typeof VisionRoute
+  '/courses/$slug': typeof CoursesSlugRoute
+  '/departments/$slug': typeof DepartmentsSlugRoute
+  '/digital-skills/$slug': typeof DigitalSkillsSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/gallery/$slug': typeof GallerySlugRoute
+  '/news/$slug': typeof NewsSlugRoute
+  '/courses': typeof CoursesIndexRoute
+  '/departments': typeof DepartmentsIndexRoute
+  '/digital-skills': typeof DigitalSkillsIndexRoute
+  '/events': typeof EventsIndexRoute
+  '/gallery': typeof GalleryIndexRoute
+  '/news': typeof NewsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/application-status': typeof ApplicationStatusRoute
+  '/apply': typeof ApplyRoute
+  '/contact': typeof ContactRoute
+  '/downloads': typeof DownloadsRoute
+  '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
+  '/mission': typeof MissionRoute
+  '/staff': typeof StaffRoute
+  '/student-success': typeof StudentSuccessRoute
+  '/verify-certificate': typeof VerifyCertificateRoute
+  '/vision': typeof VisionRoute
+  '/courses/$slug': typeof CoursesSlugRoute
+  '/departments/$slug': typeof DepartmentsSlugRoute
+  '/digital-skills/$slug': typeof DigitalSkillsSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/gallery/$slug': typeof GallerySlugRoute
+  '/news/$slug': typeof NewsSlugRoute
+  '/courses/': typeof CoursesIndexRoute
+  '/departments/': typeof DepartmentsIndexRoute
+  '/digital-skills/': typeof DigitalSkillsIndexRoute
+  '/events/': typeof EventsIndexRoute
+  '/gallery/': typeof GalleryIndexRoute
+  '/news/': typeof NewsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/application-status'
+    | '/apply'
+    | '/contact'
+    | '/downloads'
+    | '/faq'
+    | '/login'
+    | '/mission'
+    | '/staff'
+    | '/student-success'
+    | '/verify-certificate'
+    | '/vision'
+    | '/courses/$slug'
+    | '/departments/$slug'
+    | '/digital-skills/$slug'
+    | '/events/$slug'
+    | '/gallery/$slug'
+    | '/news/$slug'
+    | '/courses/'
+    | '/departments/'
+    | '/digital-skills/'
+    | '/events/'
+    | '/gallery/'
+    | '/news/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/application-status'
+    | '/apply'
+    | '/contact'
+    | '/downloads'
+    | '/faq'
+    | '/login'
+    | '/mission'
+    | '/staff'
+    | '/student-success'
+    | '/verify-certificate'
+    | '/vision'
+    | '/courses/$slug'
+    | '/departments/$slug'
+    | '/digital-skills/$slug'
+    | '/events/$slug'
+    | '/gallery/$slug'
+    | '/news/$slug'
+    | '/courses'
+    | '/departments'
+    | '/digital-skills'
+    | '/events'
+    | '/gallery'
+    | '/news'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/application-status'
+    | '/apply'
+    | '/contact'
+    | '/downloads'
+    | '/faq'
+    | '/login'
+    | '/mission'
+    | '/staff'
+    | '/student-success'
+    | '/verify-certificate'
+    | '/vision'
+    | '/courses/$slug'
+    | '/departments/$slug'
+    | '/digital-skills/$slug'
+    | '/events/$slug'
+    | '/gallery/$slug'
+    | '/news/$slug'
+    | '/courses/'
+    | '/departments/'
+    | '/digital-skills/'
+    | '/events/'
+    | '/gallery/'
+    | '/news/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AdmissionsRoute: typeof AdmissionsRoute
+  ApplicationStatusRoute: typeof ApplicationStatusRoute
+  ApplyRoute: typeof ApplyRoute
+  ContactRoute: typeof ContactRoute
+  DownloadsRoute: typeof DownloadsRoute
+  FaqRoute: typeof FaqRoute
+  LoginRoute: typeof LoginRoute
+  MissionRoute: typeof MissionRoute
+  StaffRoute: typeof StaffRoute
+  StudentSuccessRoute: typeof StudentSuccessRoute
+  VerifyCertificateRoute: typeof VerifyCertificateRoute
+  VisionRoute: typeof VisionRoute
+  CoursesSlugRoute: typeof CoursesSlugRoute
+  DepartmentsSlugRoute: typeof DepartmentsSlugRoute
+  DigitalSkillsSlugRoute: typeof DigitalSkillsSlugRoute
+  EventsSlugRoute: typeof EventsSlugRoute
+  GallerySlugRoute: typeof GallerySlugRoute
+  NewsSlugRoute: typeof NewsSlugRoute
+  CoursesIndexRoute: typeof CoursesIndexRoute
+  DepartmentsIndexRoute: typeof DepartmentsIndexRoute
+  DigitalSkillsIndexRoute: typeof DigitalSkillsIndexRoute
+  EventsIndexRoute: typeof EventsIndexRoute
+  GalleryIndexRoute: typeof GalleryIndexRoute
+  NewsIndexRoute: typeof NewsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +377,211 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions': {
+      id: '/admissions'
+      path: '/admissions'
+      fullPath: '/admissions'
+      preLoaderRoute: typeof AdmissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/application-status': {
+      id: '/application-status'
+      path: '/application-status'
+      fullPath: '/application-status'
+      preLoaderRoute: typeof ApplicationStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apply': {
+      id: '/apply'
+      path: '/apply'
+      fullPath: '/apply'
+      preLoaderRoute: typeof ApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mission': {
+      id: '/mission'
+      path: '/mission'
+      fullPath: '/mission'
+      preLoaderRoute: typeof MissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff': {
+      id: '/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof StaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student-success': {
+      id: '/student-success'
+      path: '/student-success'
+      fullPath: '/student-success'
+      preLoaderRoute: typeof StudentSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify-certificate': {
+      id: '/verify-certificate'
+      path: '/verify-certificate'
+      fullPath: '/verify-certificate'
+      preLoaderRoute: typeof VerifyCertificateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vision': {
+      id: '/vision'
+      path: '/vision'
+      fullPath: '/vision'
+      preLoaderRoute: typeof VisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses/': {
+      id: '/courses/'
+      path: '/courses'
+      fullPath: '/courses/'
+      preLoaderRoute: typeof CoursesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses/$slug': {
+      id: '/courses/$slug'
+      path: '/courses/$slug'
+      fullPath: '/courses/$slug'
+      preLoaderRoute: typeof CoursesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/departments/': {
+      id: '/departments/'
+      path: '/departments'
+      fullPath: '/departments/'
+      preLoaderRoute: typeof DepartmentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/departments/$slug': {
+      id: '/departments/$slug'
+      path: '/departments/$slug'
+      fullPath: '/departments/$slug'
+      preLoaderRoute: typeof DepartmentsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/digital-skills/': {
+      id: '/digital-skills/'
+      path: '/digital-skills'
+      fullPath: '/digital-skills/'
+      preLoaderRoute: typeof DigitalSkillsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/digital-skills/$slug': {
+      id: '/digital-skills/$slug'
+      path: '/digital-skills/$slug'
+      fullPath: '/digital-skills/$slug'
+      preLoaderRoute: typeof DigitalSkillsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events/': {
+      id: '/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof EventsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events/$slug': {
+      id: '/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof EventsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery/': {
+      id: '/gallery/'
+      path: '/gallery'
+      fullPath: '/gallery/'
+      preLoaderRoute: typeof GalleryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery/$slug': {
+      id: '/gallery/$slug'
+      path: '/gallery/$slug'
+      fullPath: '/gallery/$slug'
+      preLoaderRoute: typeof GallerySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news/': {
+      id: '/news/'
+      path: '/news'
+      fullPath: '/news/'
+      preLoaderRoute: typeof NewsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news/$slug': {
+      id: '/news/$slug'
+      path: '/news/$slug'
+      fullPath: '/news/$slug'
+      preLoaderRoute: typeof NewsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdmissionsRoute: AdmissionsRoute,
+  ApplicationStatusRoute: ApplicationStatusRoute,
+  ApplyRoute: ApplyRoute,
+  ContactRoute: ContactRoute,
+  DownloadsRoute: DownloadsRoute,
+  FaqRoute: FaqRoute,
+  LoginRoute: LoginRoute,
+  MissionRoute: MissionRoute,
+  StaffRoute: StaffRoute,
+  StudentSuccessRoute: StudentSuccessRoute,
+  VerifyCertificateRoute: VerifyCertificateRoute,
+  VisionRoute: VisionRoute,
+  CoursesSlugRoute: CoursesSlugRoute,
+  DepartmentsSlugRoute: DepartmentsSlugRoute,
+  DigitalSkillsSlugRoute: DigitalSkillsSlugRoute,
+  EventsSlugRoute: EventsSlugRoute,
+  GallerySlugRoute: GallerySlugRoute,
+  NewsSlugRoute: NewsSlugRoute,
+  CoursesIndexRoute: CoursesIndexRoute,
+  DepartmentsIndexRoute: DepartmentsIndexRoute,
+  DigitalSkillsIndexRoute: DigitalSkillsIndexRoute,
+  EventsIndexRoute: EventsIndexRoute,
+  GalleryIndexRoute: GalleryIndexRoute,
+  NewsIndexRoute: NewsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
