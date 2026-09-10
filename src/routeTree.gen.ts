@@ -23,6 +23,12 @@ import { Route as DepartmentsIndexRouteImport } from './routes/departments/index
 import { Route as DepartmentsSlugRouteImport } from './routes/departments/$slug'
 import { Route as DigitalSkillsIndexRouteImport } from './routes/digital-skills/index'
 import { Route as DigitalSkillsSlugRouteImport } from './routes/digital-skills/$slug'
+import { Route as EventsIndexRouteImport } from './routes/events/index'
+import { Route as EventsSlugRouteImport } from './routes/events/$slug'
+import { Route as GalleryIndexRouteImport } from './routes/gallery/index'
+import { Route as GallerySlugRouteImport } from './routes/gallery/$slug'
+import { Route as NewsIndexRouteImport } from './routes/news/index'
+import { Route as NewsSlugRouteImport } from './routes/news/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -94,6 +100,36 @@ const DigitalSkillsSlugRoute = DigitalSkillsSlugRouteImport.update({
   path: '/digital-skills/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsIndexRoute = EventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsSlugRoute = EventsSlugRouteImport.update({
+  id: '/events/$slug',
+  path: '/events/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryIndexRoute = GalleryIndexRouteImport.update({
+  id: '/gallery/',
+  path: '/gallery/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GallerySlugRoute = GallerySlugRouteImport.update({
+  id: '/gallery/$slug',
+  path: '/gallery/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsIndexRoute = NewsIndexRouteImport.update({
+  id: '/news/',
+  path: '/news/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsSlugRoute = NewsSlugRouteImport.update({
+  id: '/news/$slug',
+  path: '/news/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -107,9 +143,15 @@ export interface FileRoutesByFullPath {
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
   '/digital-skills/$slug': typeof DigitalSkillsSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/gallery/$slug': typeof GallerySlugRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/courses/': typeof CoursesIndexRoute
   '/departments/': typeof DepartmentsIndexRoute
   '/digital-skills/': typeof DigitalSkillsIndexRoute
+  '/events/': typeof EventsIndexRoute
+  '/gallery/': typeof GalleryIndexRoute
+  '/news/': typeof NewsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -123,9 +165,15 @@ export interface FileRoutesByTo {
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
   '/digital-skills/$slug': typeof DigitalSkillsSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/gallery/$slug': typeof GallerySlugRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/courses': typeof CoursesIndexRoute
   '/departments': typeof DepartmentsIndexRoute
   '/digital-skills': typeof DigitalSkillsIndexRoute
+  '/events': typeof EventsIndexRoute
+  '/gallery': typeof GalleryIndexRoute
+  '/news': typeof NewsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -140,9 +188,15 @@ export interface FileRoutesById {
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
   '/digital-skills/$slug': typeof DigitalSkillsSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/gallery/$slug': typeof GallerySlugRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/courses/': typeof CoursesIndexRoute
   '/departments/': typeof DepartmentsIndexRoute
   '/digital-skills/': typeof DigitalSkillsIndexRoute
+  '/events/': typeof EventsIndexRoute
+  '/gallery/': typeof GalleryIndexRoute
+  '/news/': typeof NewsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -158,9 +212,15 @@ export interface FileRouteTypes {
     | '/courses/$slug'
     | '/departments/$slug'
     | '/digital-skills/$slug'
+    | '/events/$slug'
+    | '/gallery/$slug'
+    | '/news/$slug'
     | '/courses/'
     | '/departments/'
     | '/digital-skills/'
+    | '/events/'
+    | '/gallery/'
+    | '/news/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -174,9 +234,15 @@ export interface FileRouteTypes {
     | '/courses/$slug'
     | '/departments/$slug'
     | '/digital-skills/$slug'
+    | '/events/$slug'
+    | '/gallery/$slug'
+    | '/news/$slug'
     | '/courses'
     | '/departments'
     | '/digital-skills'
+    | '/events'
+    | '/gallery'
+    | '/news'
   id:
     | '__root__'
     | '/'
@@ -190,9 +256,15 @@ export interface FileRouteTypes {
     | '/courses/$slug'
     | '/departments/$slug'
     | '/digital-skills/$slug'
+    | '/events/$slug'
+    | '/gallery/$slug'
+    | '/news/$slug'
     | '/courses/'
     | '/departments/'
     | '/digital-skills/'
+    | '/events/'
+    | '/gallery/'
+    | '/news/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -207,9 +279,15 @@ export interface RootRouteChildren {
   CoursesSlugRoute: typeof CoursesSlugRoute
   DepartmentsSlugRoute: typeof DepartmentsSlugRoute
   DigitalSkillsSlugRoute: typeof DigitalSkillsSlugRoute
+  EventsSlugRoute: typeof EventsSlugRoute
+  GallerySlugRoute: typeof GallerySlugRoute
+  NewsSlugRoute: typeof NewsSlugRoute
   CoursesIndexRoute: typeof CoursesIndexRoute
   DepartmentsIndexRoute: typeof DepartmentsIndexRoute
   DigitalSkillsIndexRoute: typeof DigitalSkillsIndexRoute
+  EventsIndexRoute: typeof EventsIndexRoute
+  GalleryIndexRoute: typeof GalleryIndexRoute
+  NewsIndexRoute: typeof NewsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -312,6 +390,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DigitalSkillsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/': {
+      id: '/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof EventsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events/$slug': {
+      id: '/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof EventsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery/': {
+      id: '/gallery/'
+      path: '/gallery'
+      fullPath: '/gallery/'
+      preLoaderRoute: typeof GalleryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery/$slug': {
+      id: '/gallery/$slug'
+      path: '/gallery/$slug'
+      fullPath: '/gallery/$slug'
+      preLoaderRoute: typeof GallerySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news/': {
+      id: '/news/'
+      path: '/news'
+      fullPath: '/news/'
+      preLoaderRoute: typeof NewsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news/$slug': {
+      id: '/news/$slug'
+      path: '/news/$slug'
+      fullPath: '/news/$slug'
+      preLoaderRoute: typeof NewsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -327,9 +447,15 @@ const rootRouteChildren: RootRouteChildren = {
   CoursesSlugRoute: CoursesSlugRoute,
   DepartmentsSlugRoute: DepartmentsSlugRoute,
   DigitalSkillsSlugRoute: DigitalSkillsSlugRoute,
+  EventsSlugRoute: EventsSlugRoute,
+  GallerySlugRoute: GallerySlugRoute,
+  NewsSlugRoute: NewsSlugRoute,
   CoursesIndexRoute: CoursesIndexRoute,
   DepartmentsIndexRoute: DepartmentsIndexRoute,
   DigitalSkillsIndexRoute: DigitalSkillsIndexRoute,
+  EventsIndexRoute: EventsIndexRoute,
+  GalleryIndexRoute: GalleryIndexRoute,
+  NewsIndexRoute: NewsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
