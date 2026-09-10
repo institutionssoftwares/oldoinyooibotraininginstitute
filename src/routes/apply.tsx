@@ -13,9 +13,8 @@ import { coursesQuery } from "@/lib/queries";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/apply")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    course: typeof search["course"] === "string" ? (search["course"] as string) : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { course?: string } =>
+    typeof search["course"] === "string" ? { course: search["course"] } : {},
   head: () => ({
     meta: [
       { title: "Apply Online | OOTI Loitokitok" },

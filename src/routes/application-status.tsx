@@ -8,9 +8,8 @@ import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/application-status")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    reference: typeof search["reference"] === "string" ? (search["reference"] as string) : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { reference?: string } =>
+    typeof search["reference"] === "string" ? { reference: search["reference"] } : {},
   head: () => ({
     meta: [
       { title: "Check Application Status | OOTI Loitokitok" },
