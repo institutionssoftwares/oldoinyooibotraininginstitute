@@ -11,6 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdmissionsRouteImport } from './routes/admissions'
+import { Route as ApplicationStatusRouteImport } from './routes/application-status'
+import { Route as ApplyRouteImport } from './routes/apply'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as MissionRouteImport } from './routes/mission'
 import { Route as VisionRouteImport } from './routes/vision'
 import { Route as CoursesIndexRouteImport } from './routes/courses/index'
@@ -28,6 +32,26 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsRoute = AdmissionsRouteImport.update({
+  id: '/admissions',
+  path: '/admissions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplicationStatusRoute = ApplicationStatusRouteImport.update({
+  id: '/application-status',
+  path: '/application-status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplyRoute = ApplyRouteImport.update({
+  id: '/apply',
+  path: '/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MissionRoute = MissionRouteImport.update({
@@ -74,6 +98,10 @@ const DigitalSkillsSlugRoute = DigitalSkillsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/application-status': typeof ApplicationStatusRoute
+  '/apply': typeof ApplyRoute
+  '/contact': typeof ContactRoute
   '/mission': typeof MissionRoute
   '/vision': typeof VisionRoute
   '/courses/$slug': typeof CoursesSlugRoute
@@ -86,6 +114,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/application-status': typeof ApplicationStatusRoute
+  '/apply': typeof ApplyRoute
+  '/contact': typeof ContactRoute
   '/mission': typeof MissionRoute
   '/vision': typeof VisionRoute
   '/courses/$slug': typeof CoursesSlugRoute
@@ -99,6 +131,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/application-status': typeof ApplicationStatusRoute
+  '/apply': typeof ApplyRoute
+  '/contact': typeof ContactRoute
   '/mission': typeof MissionRoute
   '/vision': typeof VisionRoute
   '/courses/$slug': typeof CoursesSlugRoute
@@ -113,6 +149,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admissions'
+    | '/application-status'
+    | '/apply'
+    | '/contact'
     | '/mission'
     | '/vision'
     | '/courses/$slug'
@@ -125,6 +165,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/admissions'
+    | '/application-status'
+    | '/apply'
+    | '/contact'
     | '/mission'
     | '/vision'
     | '/courses/$slug'
@@ -137,6 +181,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/admissions'
+    | '/application-status'
+    | '/apply'
+    | '/contact'
     | '/mission'
     | '/vision'
     | '/courses/$slug'
@@ -150,6 +198,10 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdmissionsRoute: typeof AdmissionsRoute
+  ApplicationStatusRoute: typeof ApplicationStatusRoute
+  ApplyRoute: typeof ApplyRoute
+  ContactRoute: typeof ContactRoute
   MissionRoute: typeof MissionRoute
   VisionRoute: typeof VisionRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
@@ -174,6 +226,34 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions': {
+      id: '/admissions'
+      path: '/admissions'
+      fullPath: '/admissions'
+      preLoaderRoute: typeof AdmissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/application-status': {
+      id: '/application-status'
+      path: '/application-status'
+      fullPath: '/application-status'
+      preLoaderRoute: typeof ApplicationStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apply': {
+      id: '/apply'
+      path: '/apply'
+      fullPath: '/apply'
+      preLoaderRoute: typeof ApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mission': {
@@ -238,6 +318,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdmissionsRoute: AdmissionsRoute,
+  ApplicationStatusRoute: ApplicationStatusRoute,
+  ApplyRoute: ApplyRoute,
+  ContactRoute: ContactRoute,
   MissionRoute: MissionRoute,
   VisionRoute: VisionRoute,
   CoursesSlugRoute: CoursesSlugRoute,
