@@ -14,6 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
+      announcements: {
+        Row: {
+          archived: boolean
+          attachment_url: string | null
+          audience: string
+          category: string
+          course_id: string | null
+          created_at: string
+          created_by: string | null
+          department_id: string | null
+          ends_at: string | null
+          id: string
+          image_url: string | null
+          message: string
+          priority: string
+          publish_at: string | null
+          published: boolean
+          starts_at: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          archived?: boolean
+          attachment_url?: string | null
+          audience?: string
+          category?: string
+          course_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          ends_at?: string | null
+          id?: string
+          image_url?: string | null
+          message: string
+          priority?: string
+          publish_at?: string | null
+          published?: boolean
+          starts_at?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          archived?: boolean
+          attachment_url?: string | null
+          audience?: string
+          category?: string
+          course_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          ends_at?: string | null
+          id?: string
+          image_url?: string | null
+          message?: string
+          priority?: string
+          publish_at?: string | null
+          published?: boolean
+          starts_at?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "announcements_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "announcements_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       applications: {
         Row: {
           county: string | null
@@ -29,6 +110,10 @@ export type Database = {
           highest_qualification: string | null
           id: string
           intake: string | null
+          interview_at: string | null
+          interview_location: string | null
+          interview_notes: string | null
+          interview_score: number | null
           mean_grade: string | null
           national_id: string | null
           notes: string | null
@@ -37,6 +122,7 @@ export type Database = {
           reference: string
           reviewed_at: string | null
           reviewed_by: string | null
+          staff_notes: string | null
           status: string
           updated_at: string
           user_id: string | null
@@ -55,6 +141,10 @@ export type Database = {
           highest_qualification?: string | null
           id?: string
           intake?: string | null
+          interview_at?: string | null
+          interview_location?: string | null
+          interview_notes?: string | null
+          interview_score?: number | null
           mean_grade?: string | null
           national_id?: string | null
           notes?: string | null
@@ -63,6 +153,7 @@ export type Database = {
           reference?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
+          staff_notes?: string | null
           status?: string
           updated_at?: string
           user_id?: string | null
@@ -81,6 +172,10 @@ export type Database = {
           highest_qualification?: string | null
           id?: string
           intake?: string | null
+          interview_at?: string | null
+          interview_location?: string | null
+          interview_notes?: string | null
+          interview_score?: number | null
           mean_grade?: string | null
           national_id?: string | null
           notes?: string | null
@@ -89,6 +184,7 @@ export type Database = {
           reference?: string
           reviewed_at?: string | null
           reviewed_by?: string | null
+          staff_notes?: string | null
           status?: string
           updated_at?: string
           user_id?: string | null
@@ -102,6 +198,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      audit_logs: {
+        Row: {
+          action: string
+          content_id: string | null
+          content_type: string
+          created_at: string
+          details: Json | null
+          id: string
+          summary: string | null
+          user_email: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          content_id?: string | null
+          content_type: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          summary?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          content_id?: string | null
+          content_type?: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          summary?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
       }
       contact_messages: {
         Row: {
@@ -158,11 +290,14 @@ export type Database = {
           minimum_grade: string | null
           mode_of_study: string | null
           name: string
+          og_image_url: string | null
+          publish_at: string | null
           published: boolean
           seo_description: string | null
           seo_title: string | null
           slug: string
           sort_order: number
+          status: string
           units: Json
           updated_at: string
         }
@@ -187,11 +322,14 @@ export type Database = {
           minimum_grade?: string | null
           mode_of_study?: string | null
           name: string
+          og_image_url?: string | null
+          publish_at?: string | null
           published?: boolean
           seo_description?: string | null
           seo_title?: string | null
           slug: string
           sort_order?: number
+          status?: string
           units?: Json
           updated_at?: string
         }
@@ -216,11 +354,14 @@ export type Database = {
           minimum_grade?: string | null
           mode_of_study?: string | null
           name?: string
+          og_image_url?: string | null
+          publish_at?: string | null
           published?: boolean
           seo_description?: string | null
           seo_title?: string | null
           slug?: string
           sort_order?: number
+          status?: string
           units?: Json
           updated_at?: string
         }
@@ -243,11 +384,13 @@ export type Database = {
           id: string
           image_url: string | null
           name: string
+          publish_at: string | null
           published: boolean
           seo_description: string | null
           seo_title: string | null
           slug: string
           sort_order: number
+          status: string
           updated_at: string
         }
         Insert: {
@@ -258,11 +401,13 @@ export type Database = {
           id?: string
           image_url?: string | null
           name: string
+          publish_at?: string | null
           published?: boolean
           seo_description?: string | null
           seo_title?: string | null
           slug: string
           sort_order?: number
+          status?: string
           updated_at?: string
         }
         Update: {
@@ -273,151 +418,297 @@ export type Database = {
           id?: string
           image_url?: string | null
           name?: string
+          publish_at?: string | null
           published?: boolean
           seo_description?: string | null
           seo_title?: string | null
           slug?: string
           sort_order?: number
+          status?: string
           updated_at?: string
         }
         Relationships: []
       }
       documents: {
         Row: {
+          archived: boolean
           category: string | null
           created_at: string
           description: string | null
+          file_name: string | null
           file_url: string
           id: string
           is_public: boolean
+          media_id: string | null
+          publish_at: string | null
+          size_bytes: number | null
+          sort_order: number
+          status: string
           title: string
           updated_at: string
+          visibility: string
         }
         Insert: {
+          archived?: boolean
           category?: string | null
           created_at?: string
           description?: string | null
+          file_name?: string | null
           file_url: string
           id?: string
           is_public?: boolean
+          media_id?: string | null
+          publish_at?: string | null
+          size_bytes?: number | null
+          sort_order?: number
+          status?: string
           title: string
           updated_at?: string
+          visibility?: string
         }
         Update: {
+          archived?: boolean
           category?: string | null
           created_at?: string
           description?: string | null
+          file_name?: string | null
           file_url?: string
           id?: string
           is_public?: boolean
+          media_id?: string | null
+          publish_at?: string | null
+          size_bytes?: number | null
+          sort_order?: number
+          status?: string
           title?: string
           updated_at?: string
+          visibility?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "documents_media_id_fkey"
+            columns: ["media_id"]
+            isOneToOne: false
+            referencedRelation: "media"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      event_registrations: {
+        Row: {
+          created_at: string
+          email: string | null
+          event_id: string
+          full_name: string
+          id: string
+          notes: string | null
+          phone: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          event_id: string
+          full_name: string
+          id?: string
+          notes?: string | null
+          phone: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          event_id?: string
+          full_name?: string
+          id?: string
+          notes?: string | null
+          phone?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       events: {
         Row: {
+          album_id: string | null
+          archived: boolean
+          category: string | null
+          contact_info: string | null
           created_at: string
           description: string | null
           ends_at: string | null
+          featured: boolean
           id: string
           image_url: string | null
           location: string | null
+          poster_url: string | null
+          publish_at: string | null
           published: boolean
+          registration_link: string | null
+          seo_description: string | null
+          seo_title: string | null
           slug: string
           starts_at: string | null
+          status: string
           title: string
           updated_at: string
         }
         Insert: {
+          album_id?: string | null
+          archived?: boolean
+          category?: string | null
+          contact_info?: string | null
           created_at?: string
           description?: string | null
           ends_at?: string | null
+          featured?: boolean
           id?: string
           image_url?: string | null
           location?: string | null
+          poster_url?: string | null
+          publish_at?: string | null
           published?: boolean
+          registration_link?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
           slug: string
           starts_at?: string | null
+          status?: string
           title: string
           updated_at?: string
         }
         Update: {
+          album_id?: string | null
+          archived?: boolean
+          category?: string | null
+          contact_info?: string | null
           created_at?: string
           description?: string | null
           ends_at?: string | null
+          featured?: boolean
           id?: string
           image_url?: string | null
           location?: string | null
+          poster_url?: string | null
+          publish_at?: string | null
           published?: boolean
+          registration_link?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
           slug?: string
           starts_at?: string | null
+          status?: string
           title?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "events_album_id_fkey"
+            columns: ["album_id"]
+            isOneToOne: false
+            referencedRelation: "gallery_albums"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       faqs: {
         Row: {
           answer: string
+          archived: boolean
           category: string | null
           created_at: string
           id: string
+          publish_at: string | null
           published: boolean
           question: string
           sort_order: number
+          status: string
+          updated_at: string
         }
         Insert: {
           answer: string
+          archived?: boolean
           category?: string | null
           created_at?: string
           id?: string
+          publish_at?: string | null
           published?: boolean
           question: string
           sort_order?: number
+          status?: string
+          updated_at?: string
         }
         Update: {
           answer?: string
+          archived?: boolean
           category?: string | null
           created_at?: string
           id?: string
+          publish_at?: string | null
           published?: boolean
           question?: string
           sort_order?: number
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }
       gallery_albums: {
         Row: {
+          archived: boolean
+          category: string | null
           cover_url: string | null
           created_at: string
           description: string | null
+          event_date: string | null
+          featured: boolean
           id: string
+          location: string | null
+          publish_at: string | null
           published: boolean
           slug: string
           sort_order: number
+          status: string
           title: string
           updated_at: string
         }
         Insert: {
+          archived?: boolean
+          category?: string | null
           cover_url?: string | null
           created_at?: string
           description?: string | null
+          event_date?: string | null
+          featured?: boolean
           id?: string
+          location?: string | null
+          publish_at?: string | null
           published?: boolean
           slug: string
           sort_order?: number
+          status?: string
           title: string
           updated_at?: string
         }
         Update: {
+          archived?: boolean
+          category?: string | null
           cover_url?: string | null
           created_at?: string
           description?: string | null
+          event_date?: string | null
+          featured?: boolean
           id?: string
+          location?: string | null
+          publish_at?: string | null
           published?: boolean
           slug?: string
           sort_order?: number
+          status?: string
           title?: string
           updated_at?: string
         }
@@ -426,27 +717,63 @@ export type Database = {
       gallery_images: {
         Row: {
           album_id: string | null
+          alt_text: string | null
+          archived: boolean
           caption: string | null
           created_at: string
+          description: string | null
+          featured: boolean
           id: string
           image_url: string
+          location: string | null
+          media_id: string | null
+          publish_at: string | null
+          published: boolean
           sort_order: number
+          status: string
+          taken_at: string | null
+          title: string | null
+          updated_at: string
         }
         Insert: {
           album_id?: string | null
+          alt_text?: string | null
+          archived?: boolean
           caption?: string | null
           created_at?: string
+          description?: string | null
+          featured?: boolean
           id?: string
           image_url: string
+          location?: string | null
+          media_id?: string | null
+          publish_at?: string | null
+          published?: boolean
           sort_order?: number
+          status?: string
+          taken_at?: string | null
+          title?: string | null
+          updated_at?: string
         }
         Update: {
           album_id?: string | null
+          alt_text?: string | null
+          archived?: boolean
           caption?: string | null
           created_at?: string
+          description?: string | null
+          featured?: boolean
           id?: string
           image_url?: string
+          location?: string | null
+          media_id?: string | null
+          publish_at?: string | null
+          published?: boolean
           sort_order?: number
+          status?: string
+          taken_at?: string | null
+          title?: string | null
+          updated_at?: string
         }
         Relationships: [
           {
@@ -456,54 +783,217 @@ export type Database = {
             referencedRelation: "gallery_albums"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "gallery_images_media_id_fkey"
+            columns: ["media_id"]
+            isOneToOne: false
+            referencedRelation: "media"
+            referencedColumns: ["id"]
+          },
         ]
+      }
+      homepage_sections: {
+        Row: {
+          body: string | null
+          cta_label: string | null
+          cta_link: string | null
+          data: Json
+          enabled: boolean
+          id: string
+          image_url: string | null
+          key: string
+          secondary_cta_label: string | null
+          secondary_cta_link: string | null
+          sort_order: number
+          subtitle: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          cta_label?: string | null
+          cta_link?: string | null
+          data?: Json
+          enabled?: boolean
+          id?: string
+          image_url?: string | null
+          key: string
+          secondary_cta_label?: string | null
+          secondary_cta_link?: string | null
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          cta_label?: string | null
+          cta_link?: string | null
+          data?: Json
+          enabled?: boolean
+          id?: string
+          image_url?: string | null
+          key?: string
+          secondary_cta_label?: string | null
+          secondary_cta_link?: string | null
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      media: {
+        Row: {
+          alt_text: string | null
+          bucket: string
+          caption: string | null
+          category: string
+          created_at: string
+          description: string | null
+          file_name: string
+          height: number | null
+          id: string
+          mime_type: string | null
+          path: string
+          size_bytes: number | null
+          title: string | null
+          updated_at: string
+          uploaded_by: string | null
+          url: string
+          width: number | null
+        }
+        Insert: {
+          alt_text?: string | null
+          bucket?: string
+          caption?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          file_name: string
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          path: string
+          size_bytes?: number | null
+          title?: string | null
+          updated_at?: string
+          uploaded_by?: string | null
+          url: string
+          width?: number | null
+        }
+        Update: {
+          alt_text?: string | null
+          bucket?: string
+          caption?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          file_name?: string
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          path?: string
+          size_bytes?: number | null
+          title?: string | null
+          updated_at?: string
+          uploaded_by?: string | null
+          url?: string
+          width?: number | null
+        }
+        Relationships: []
+      }
+      news_categories: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
       }
       news_posts: {
         Row: {
+          archived: boolean
           author_id: string | null
+          author_name: string | null
           body: string | null
           category: string | null
           created_at: string
           excerpt: string | null
+          featured: boolean
           id: string
           image_url: string | null
+          images: Json
+          og_image_url: string | null
+          publish_at: string | null
           published: boolean
           published_at: string | null
           seo_description: string | null
           seo_title: string | null
           slug: string
+          status: string
+          tags: string[]
           title: string
           updated_at: string
         }
         Insert: {
+          archived?: boolean
           author_id?: string | null
+          author_name?: string | null
           body?: string | null
           category?: string | null
           created_at?: string
           excerpt?: string | null
+          featured?: boolean
           id?: string
           image_url?: string | null
+          images?: Json
+          og_image_url?: string | null
+          publish_at?: string | null
           published?: boolean
           published_at?: string | null
           seo_description?: string | null
           seo_title?: string | null
           slug: string
+          status?: string
+          tags?: string[]
           title: string
           updated_at?: string
         }
         Update: {
+          archived?: boolean
           author_id?: string | null
+          author_name?: string | null
           body?: string | null
           category?: string | null
           created_at?: string
           excerpt?: string | null
+          featured?: boolean
           id?: string
           image_url?: string | null
+          images?: Json
+          og_image_url?: string | null
+          publish_at?: string | null
           published?: boolean
           published_at?: string | null
           seo_description?: string | null
           seo_title?: string | null
           slug?: string
+          status?: string
+          tags?: string[]
           title?: string
           updated_at?: string
         }
@@ -559,6 +1049,7 @@ export type Database = {
       }
       staff_profiles: {
         Row: {
+          archived: boolean
           bio: string | null
           created_at: string
           department_id: string | null
@@ -568,11 +1059,16 @@ export type Database = {
           phone: string | null
           photo_url: string | null
           position: string | null
+          publish_at: string | null
           published: boolean
           sort_order: number
+          specialization: string | null
+          staff_number: string | null
+          status: string
           updated_at: string
         }
         Insert: {
+          archived?: boolean
           bio?: string | null
           created_at?: string
           department_id?: string | null
@@ -582,11 +1078,16 @@ export type Database = {
           phone?: string | null
           photo_url?: string | null
           position?: string | null
+          publish_at?: string | null
           published?: boolean
           sort_order?: number
+          specialization?: string | null
+          staff_number?: string | null
+          status?: string
           updated_at?: string
         }
         Update: {
+          archived?: boolean
           bio?: string | null
           created_at?: string
           department_id?: string | null
@@ -596,8 +1097,12 @@ export type Database = {
           phone?: string | null
           photo_url?: string | null
           position?: string | null
+          publish_at?: string | null
           published?: boolean
           sort_order?: number
+          specialization?: string | null
+          staff_number?: string | null
+          status?: string
           updated_at?: string
         }
         Relationships: [
@@ -612,31 +1117,115 @@ export type Database = {
       }
       success_stories: {
         Row: {
+          achievement: string | null
+          archived: boolean
+          consent_obtained: boolean
           course_name: string | null
           created_at: string
+          featured: boolean
+          graduation_year: string | null
           id: string
           photo_url: string | null
+          publish_at: string | null
           published: boolean
+          quote: string | null
+          sort_order: number
+          status: string
           story: string
           student_name: string
+          updated_at: string
         }
         Insert: {
+          achievement?: string | null
+          archived?: boolean
+          consent_obtained?: boolean
           course_name?: string | null
           created_at?: string
+          featured?: boolean
+          graduation_year?: string | null
           id?: string
           photo_url?: string | null
+          publish_at?: string | null
           published?: boolean
+          quote?: string | null
+          sort_order?: number
+          status?: string
           story: string
           student_name: string
+          updated_at?: string
         }
         Update: {
+          achievement?: string | null
+          archived?: boolean
+          consent_obtained?: boolean
           course_name?: string | null
           created_at?: string
+          featured?: boolean
+          graduation_year?: string | null
           id?: string
           photo_url?: string | null
+          publish_at?: string | null
           published?: boolean
+          quote?: string | null
+          sort_order?: number
+          status?: string
           story?: string
           student_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          archived: boolean
+          course_name: string | null
+          created_at: string
+          featured: boolean
+          id: string
+          name: string
+          photo_url: string | null
+          publish_at: string | null
+          published: boolean
+          role: string | null
+          sort_order: number
+          status: string
+          testimonial: string
+          updated_at: string
+          year: string | null
+        }
+        Insert: {
+          archived?: boolean
+          course_name?: string | null
+          created_at?: string
+          featured?: boolean
+          id?: string
+          name: string
+          photo_url?: string | null
+          publish_at?: string | null
+          published?: boolean
+          role?: string | null
+          sort_order?: number
+          status?: string
+          testimonial: string
+          updated_at?: string
+          year?: string | null
+        }
+        Update: {
+          archived?: boolean
+          course_name?: string | null
+          created_at?: string
+          featured?: boolean
+          id?: string
+          name?: string
+          photo_url?: string | null
+          publish_at?: string | null
+          published?: boolean
+          role?: string | null
+          sort_order?: number
+          status?: string
+          testimonial?: string
+          updated_at?: string
+          year?: string | null
         }
         Relationships: []
       }
@@ -666,6 +1255,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_manage_academics: { Args: { _user_id: string }; Returns: boolean }
+      can_manage_admissions: { Args: { _user_id: string }; Returns: boolean }
+      can_manage_content: { Args: { _user_id: string }; Returns: boolean }
+      content_is_live: {
+        Args: { _publish_at: string; _status: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -673,6 +1269,8 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
+      is_portal_staff: { Args: { _user_id: string }; Returns: boolean }
       is_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
