@@ -9,7 +9,7 @@ type Props = {
   category: MediaCategory;
   accept?: string;
   multiple?: boolean;
-  bucket?: "public-media" | "documents";
+  bucket?: "public-media" | "documents" | undefined;
   onUploaded: (rows: MediaRow[]) => void;
   className?: string;
   compact?: boolean;

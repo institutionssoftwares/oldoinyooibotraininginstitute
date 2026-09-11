@@ -1,6 +1,6 @@
 # OOTI CMS roadmap
 
-- [ ] DB: roles, content status/scheduling, media, announcements, testimonials, homepage_sections, audit_logs, interview stage, storage buckets + policies
+- [x] DB: roles, content status/scheduling, media, announcements, testimonials, homepage_sections, audit_logs, interview stage, storage buckets + policies
 - [ ] Admin shell (/admin sidebar, role gate) + dashboard
 - [ ] Generic resource manager (list/filter/search/bulk/status) + audit
 - [ ] Media library + uploader (drag-drop, multi, compress)

@@ -131,7 +131,7 @@ export type MediaRow = {
  */
 export async function uploadMedia(
   file: File,
-  opts: { category: MediaCategory; bucket?: "public-media" | "documents"; title?: string; alt?: string; onProgress?: (p: number) => void },
+  opts: { category: MediaCategory; bucket?: "public-media" | "documents" | undefined; title?: string; alt?: string; onProgress?: (p: number) => void },
 ): Promise<MediaRow> {
   const bucket = opts.bucket ?? (file.type.startsWith("image/") ? "public-media" : "documents");
   const prepared = bucket === "public-media" ? await optimizeImage(file) : file;
@@ -149,7 +149,7 @@ export async function uploadMedia(
   opts.onProgress?.(10);
   const { error: upErr } = await supabase.storage.from(bucket).upload(path, prepared, {
     cacheControl: "31536000",
-    contentType: prepared.type || undefined,
+    contentType: prepared.type || "application/octet-stream",
     upsert: false,
   });
   if (upErr) throw new Error(upErr.message);
