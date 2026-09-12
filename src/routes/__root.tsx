@@ -16,6 +16,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { SITE_URL } from "@/lib/site";
 
 function NotFoundComponent() {
   return (
