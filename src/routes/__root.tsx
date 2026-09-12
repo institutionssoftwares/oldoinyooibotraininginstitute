@@ -16,6 +16,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { SITE_URL } from "@/lib/site";
 
 function NotFoundComponent() {
   return (
@@ -96,9 +97,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Technical, vocational and digital skills training in Loitokitok, Kajiado County, Kenya.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:site_name", content: "Oldoinyo Oibor Training Institute" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "canonical", href: SITE_URL },
       {
         rel: "stylesheet",
         href: appCss,

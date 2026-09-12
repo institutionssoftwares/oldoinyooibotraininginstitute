@@ -1,3 +1,5 @@
+export const SITE_URL = "https://oldoinyooibortraininginstitute.co.ke";
+
 export const INSTITUTION = {
   name: "Oldoinyo Oibor Training Institute",
   shortName: "OOTI",
