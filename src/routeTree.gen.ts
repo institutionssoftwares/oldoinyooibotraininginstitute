@@ -40,6 +40,9 @@ import { Route as GallerySlugRouteImport } from './routes/gallery/$slug'
 import { Route as NewsIndexRouteImport } from './routes/news/index'
 import { Route as NewsSlugRouteImport } from './routes/news/$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminHomepageRouteImport } from './routes/_authenticated/admin/homepage'
+import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin/media'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedStaffIndexRouteImport } from './routes/_authenticated/staff/index'
 import { Route as AuthenticatedAdminResourceIndexRouteImport } from './routes/_authenticated/admin/$resource/index'
 import { Route as AuthenticatedAdminResourceIdRouteImport } from './routes/_authenticated/admin/$resource/$id'
@@ -199,6 +202,23 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminHomepageRoute =
+  AuthenticatedAdminHomepageRouteImport.update({
+    id: '/homepage',
+    path: '/homepage',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminMediaRoute = AuthenticatedAdminMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedStaffIndexRoute = AuthenticatedStaffIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -252,6 +272,9 @@ export interface FileRoutesByFullPath {
   '/events/': typeof EventsIndexRoute
   '/gallery/': typeof GalleryIndexRoute
   '/news/': typeof NewsIndexRoute
+  '/admin/homepage': typeof AuthenticatedAdminHomepageRoute
+  '/admin/media': typeof AuthenticatedAdminMediaRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/staff/': typeof AuthenticatedStaffIndexRoute
   '/admin/$resource/$id': typeof AuthenticatedAdminResourceIdRoute
@@ -286,6 +309,9 @@ export interface FileRoutesByTo {
   '/events': typeof EventsIndexRoute
   '/gallery': typeof GalleryIndexRoute
   '/news': typeof NewsIndexRoute
+  '/admin/homepage': typeof AuthenticatedAdminHomepageRoute
+  '/admin/media': typeof AuthenticatedAdminMediaRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/$resource/$id': typeof AuthenticatedAdminResourceIdRoute
   '/admin/$resource/new': typeof AuthenticatedAdminResourceNewRoute
@@ -323,6 +349,9 @@ export interface FileRoutesById {
   '/events/': typeof EventsIndexRoute
   '/gallery/': typeof GalleryIndexRoute
   '/news/': typeof NewsIndexRoute
+  '/_authenticated/admin/homepage': typeof AuthenticatedAdminHomepageRoute
+  '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
+  '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/staff/': typeof AuthenticatedStaffIndexRoute
   '/_authenticated/admin/$resource/$id': typeof AuthenticatedAdminResourceIdRoute
@@ -360,6 +389,9 @@ export interface FileRouteTypes {
     | '/events/'
     | '/gallery/'
     | '/news/'
+    | '/admin/homepage'
+    | '/admin/media'
+    | '/admin/settings'
     | '/admin/'
     | '/staff/'
     | '/admin/$resource/$id'
@@ -394,6 +426,9 @@ export interface FileRouteTypes {
     | '/events'
     | '/gallery'
     | '/news'
+    | '/admin/homepage'
+    | '/admin/media'
+    | '/admin/settings'
     | '/admin'
     | '/admin/$resource/$id'
     | '/admin/$resource/new'
@@ -430,6 +465,9 @@ export interface FileRouteTypes {
     | '/events/'
     | '/gallery/'
     | '/news/'
+    | '/_authenticated/admin/homepage'
+    | '/_authenticated/admin/media'
+    | '/_authenticated/admin/settings'
     | '/_authenticated/admin/'
     | '/_authenticated/staff/'
     | '/_authenticated/admin/$resource/$id'
@@ -686,6 +724,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/homepage': {
+      id: '/_authenticated/admin/homepage'
+      path: '/homepage'
+      fullPath: '/admin/homepage'
+      preLoaderRoute: typeof AuthenticatedAdminHomepageRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/media': {
+      id: '/_authenticated/admin/media'
+      path: '/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AuthenticatedAdminMediaRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/settings': {
+      id: '/_authenticated/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/staff/': {
       id: '/_authenticated/staff/'
       path: '/'
@@ -718,6 +777,9 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminHomepageRoute: typeof AuthenticatedAdminHomepageRoute
+  AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
+  AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminResourceIdRoute: typeof AuthenticatedAdminResourceIdRoute
   AuthenticatedAdminResourceNewRoute: typeof AuthenticatedAdminResourceNewRoute
@@ -726,6 +788,9 @@ interface AuthenticatedAdminRouteRouteChildren {
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
   {
+    AuthenticatedAdminHomepageRoute: AuthenticatedAdminHomepageRoute,
+    AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
+    AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
     AuthenticatedAdminResourceIdRoute: AuthenticatedAdminResourceIdRoute,
     AuthenticatedAdminResourceNewRoute: AuthenticatedAdminResourceNewRoute,
