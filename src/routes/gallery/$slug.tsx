@@ -64,7 +64,7 @@ function Album() {
                   <img
                     src={image.image_url}
                     alt={image.caption ?? ""}
-                    className="h-56 w-full object-cover"
+                    className="max-h-[32rem] w-full bg-navy/5 object-contain"
                     loading="lazy"
                   />
                   {image.caption ? (

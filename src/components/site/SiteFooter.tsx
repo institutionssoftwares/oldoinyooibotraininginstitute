@@ -104,7 +104,18 @@ export function SiteFooter() {
           <p>
             &copy; {new Date().getFullYear()} {INSTITUTION.name}, Loitokitok. All rights reserved.
           </p>
-          <p>Technical, vocational and digital skills training.</p>
+          <p>
+            Proudly designed, developed &amp; powered by{" "}
+            <a
+              href="https://euspansolutions.co.ke"
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-gold hover:underline"
+            >
+              Euspan Solutions
+            </a>{" "}
+            — Emmanuel Ndunda, Developer/CEO
+          </p>
         </div>
       </div>
     </footer>
