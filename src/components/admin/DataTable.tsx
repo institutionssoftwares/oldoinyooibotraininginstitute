@@ -13,7 +13,7 @@ import { bulkUpdate, deleteRows, listRows, type Row } from "@/lib/admin/api";
 import { STATUS_META, type ResourceDef } from "@/lib/admin/resources";
 
 function Cell({ row, col }: { row: Row; col: NonNullable<ResourceDef["columns"]>[number] }) {
-  const v = row[col.key];
+  const v = row[col.name];
   if (col.type === "status") return <StatusBadge status={v as string} />;
   if (col.type === "boolean") return <span>{v ? "Yes" : "No"}</span>;
   if (col.type === "date" || col.type === "datetime") {
@@ -77,7 +77,7 @@ export function DataTable({ def }: { def: ResourceDef }) {
       return n;
     });
 
-  const titleOf = (r: Row) => (r[def.titleField] as string) ?? "Untitled";
+  const titleOf = (r: Row) => (r[(def.columns[0]?.name ?? "title")] as string) ?? "Untitled";
   const cols = useMemo(() => def.columns, [def]);
 
   return (
@@ -118,10 +118,10 @@ export function DataTable({ def }: { def: ResourceDef }) {
         ) : null}
         {(def.filters ?? []).map((f) => (
           <Select
-            key={f.column}
-            value={filters[f.column] || "all"}
+            key={f.name}
+            value={filters[f.name] || "all"}
             onValueChange={(v) => {
-              setFilters((s) => ({ ...s, [f.column]: v === "all" ? "" : v }));
+              setFilters((s) => ({ ...s, [f.name]: v === "all" ? "" : v }));
               setPage(0);
             }}
           >
@@ -181,7 +181,7 @@ export function DataTable({ def }: { def: ResourceDef }) {
                 <Checkbox checked={allSelected} onCheckedChange={toggleAll} aria-label="Select all" />
               </th>
               {cols.map((c) => (
-                <th key={c.key} className="px-3 py-2.5 font-medium text-muted-foreground">
+                <th key={c.name} className="px-3 py-2.5 font-medium text-muted-foreground">
                   {c.label}
                 </th>
               ))}
@@ -208,7 +208,7 @@ export function DataTable({ def }: { def: ResourceDef }) {
                     <Checkbox checked={selected.has(r.id)} onCheckedChange={() => toggle(r.id)} aria-label={`Select ${titleOf(r)}`} />
                   </td>
                   {cols.map((c, i) => (
-                    <td key={c.key} className="max-w-56 px-3 py-2.5">
+                    <td key={c.name} className="max-w-56 px-3 py-2.5">
                       {i === 0 ? (
                         <Link
                           to="/admin/$resource/$id"
