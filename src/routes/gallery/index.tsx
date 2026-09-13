@@ -57,7 +57,7 @@ function Gallery() {
                     <img
                       src={album.cover_url}
                       alt=""
-                      className="h-48 w-full object-cover"
+                      className="max-h-72 w-full bg-navy/5 object-contain"
                       loading="lazy"
                     />
                   ) : null}
