@@ -4,7 +4,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Search, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-import { MediaThumb, MediaUploader } from "@/components/admin/MediaPicker";
+import { MediaThumb } from "@/components/admin/MediaPicker";
+import { MediaUploader } from "@/components/admin/MediaUploader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";

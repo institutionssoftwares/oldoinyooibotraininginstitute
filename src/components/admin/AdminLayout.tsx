@@ -121,7 +121,7 @@ export function AdminLayout({ permissions }: { permissions: Permissions }) {
 }
 
 export function resourceTitle(key: string) {
-  return RESOURCES[key]?.plural ?? key;
+  return RESOURCES[key]?.label ?? key;
 }
 
 export { Sparkles };

@@ -22,7 +22,6 @@ function Cell({ row, col }: { row: Row; col: NonNullable<ResourceDef["columns"]>
     return <span>{col.type === "date" ? d.toLocaleDateString() : d.toLocaleString()}</span>;
   }
   if (col.type === "number") return <span>{(v as number) ?? "—"}</span>;
-  if (col.render) return <>{col.render(row)}</>;
   const text = (v as string) ?? "";
   return <span className="line-clamp-1">{text || <span className="text-muted-foreground">—</span>}</span>;
 }
@@ -91,7 +90,7 @@ export function DataTable({ def }: { def: ResourceDef }) {
               setSearch(e.target.value);
               setPage(0);
             }}
-            placeholder={`Search ${def.plural.toLowerCase()}…`}
+            placeholder={`Search ${def.label.toLowerCase()}…`}
             className="pl-9"
           />
         </div>
@@ -198,7 +197,7 @@ export function DataTable({ def }: { def: ResourceDef }) {
             ) : rows.length === 0 ? (
               <tr>
                 <td colSpan={cols.length + 2} className="px-4 py-12 text-center text-muted-foreground">
-                  No {def.plural.toLowerCase()} found.
+                  No {def.label.toLowerCase()} found.
                 </td>
               </tr>
             ) : (

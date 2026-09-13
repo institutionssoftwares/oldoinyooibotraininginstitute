@@ -10,12 +10,12 @@ export const Route = createFileRoute("/_authenticated/admin/")({
 });
 
 const CARDS = [
-  { table: "news_posts", label: "News articles", icon: Newspaper, to: "/admin/news" },
-  { table: "events", label: "Events", icon: CalendarDays, to: "/admin/events" },
-  { table: "announcements", label: "Announcements", icon: Megaphone, to: "/admin/announcements" },
-  { table: "gallery_albums", label: "Gallery albums", icon: Images, to: "/admin/albums" },
-  { table: "courses", label: "Courses", icon: FileText, to: "/admin/courses" },
-  { table: "staff_profiles", label: "Staff profiles", icon: Users, to: "/admin/staff" },
+  { table: "news_posts", label: "News articles", icon: Newspaper, resource: "news" },
+  { table: "events", label: "Events", icon: CalendarDays, resource: "events" },
+  { table: "announcements", label: "Announcements", icon: Megaphone, resource: "announcements" },
+  { table: "gallery_albums", label: "Gallery albums", icon: Images, resource: "albums" },
+  { table: "courses", label: "Courses", icon: FileText, resource: "courses" },
+  { table: "staff_profiles", label: "Staff profiles", icon: Users, resource: "staff" },
 ] as const;
 
 function AdminDashboard() {
@@ -79,7 +79,8 @@ function AdminDashboard() {
         {CARDS.map((c) => (
           <Link
             key={c.table}
-            to={c.to}
+            to="/admin/$resource"
+            params={{ resource: c.resource }}
             className="group flex items-center gap-4 rounded-xl border border-border bg-card p-5 shadow-card transition-shadow hover:shadow-lift"
           >
             <span className="flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">

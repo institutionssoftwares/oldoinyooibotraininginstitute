@@ -10,7 +10,7 @@ const table = (name: string) => (supabase as any).from(name);
 
 export type ListParams = {
   search?: string;
-  status?: string;
+  status?: string | undefined;
   filters?: Record<string, string>;
   page?: number;
   pageSize?: number;
@@ -181,7 +181,7 @@ export async function uploadMedia(
   return data as MediaRow;
 }
 
-export async function listMedia(params: { search?: string; category?: string; page?: number; pageSize?: number; imagesOnly?: boolean } = {}) {
+export async function listMedia(params: { search?: string; category?: string | undefined; page?: number; pageSize?: number; imagesOnly?: boolean } = {}) {
   const pageSize = params.pageSize ?? 40;
   const page = params.page ?? 0;
   let q = table("media").select("*", { count: "exact" }).order("created_at", { ascending: false });

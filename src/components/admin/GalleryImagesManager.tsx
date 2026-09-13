@@ -55,7 +55,7 @@ export function GalleryImagesManager({ albumId }: { albumId: string }) {
   });
 
   const update = useMutation({
-    mutationFn: async ({ id, values }: { id: string; values: Partial<GalleryImage> }) => {
+    mutationFn: async ({ id, values }: { id: string; values: Partial<GalleryImage> & { status?: string } }) => {
       const { error } = await table().update(values).eq("id", id);
       if (error) throw new Error(error.message);
     },
