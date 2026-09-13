@@ -24,6 +24,7 @@ import { Route as StaffRouteImport } from './routes/staff'
 import { Route as StudentSuccessRouteImport } from './routes/student-success'
 import { Route as VerifyCertificateRouteImport } from './routes/verify-certificate'
 import { Route as VisionRouteImport } from './routes/vision'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
 import { Route as AuthenticatedStaffRouteRouteImport } from './routes/_authenticated/staff/route'
 import { Route as CoursesIndexRouteImport } from './routes/courses/index'
@@ -38,7 +39,11 @@ import { Route as GalleryIndexRouteImport } from './routes/gallery/index'
 import { Route as GallerySlugRouteImport } from './routes/gallery/$slug'
 import { Route as NewsIndexRouteImport } from './routes/news/index'
 import { Route as NewsSlugRouteImport } from './routes/news/$slug'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedStaffIndexRouteImport } from './routes/_authenticated/staff/index'
+import { Route as AuthenticatedAdminResourceIndexRouteImport } from './routes/_authenticated/admin/$resource/index'
+import { Route as AuthenticatedAdminResourceIdRouteImport } from './routes/_authenticated/admin/$resource/$id'
+import { Route as AuthenticatedAdminResourceNewRouteImport } from './routes/_authenticated/admin/$resource/new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -114,6 +119,11 @@ const VisionRoute = VisionRouteImport.update({
   path: '/vision',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
   id: '/portal',
   path: '/portal',
@@ -184,11 +194,34 @@ const NewsSlugRoute = NewsSlugRouteImport.update({
   path: '/news/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedStaffIndexRoute = AuthenticatedStaffIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedStaffRouteRoute,
 } as any)
+const AuthenticatedAdminResourceIndexRoute =
+  AuthenticatedAdminResourceIndexRouteImport.update({
+    id: '/$resource/',
+    path: '/$resource/',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminResourceIdRoute =
+  AuthenticatedAdminResourceIdRouteImport.update({
+    id: '/$resource/$id',
+    path: '/$resource/$id',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminResourceNewRoute =
+  AuthenticatedAdminResourceNewRouteImport.update({
+    id: '/$resource/new',
+    path: '/$resource/new',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -205,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/student-success': typeof StudentSuccessRoute
   '/verify-certificate': typeof VerifyCertificateRoute
   '/vision': typeof VisionRoute
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/portal': typeof AuthenticatedPortalRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/departments/$slug': typeof DepartmentsSlugRoute
@@ -218,7 +252,11 @@ export interface FileRoutesByFullPath {
   '/events/': typeof EventsIndexRoute
   '/gallery/': typeof GalleryIndexRoute
   '/news/': typeof NewsIndexRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/staff/': typeof AuthenticatedStaffIndexRoute
+  '/admin/$resource/$id': typeof AuthenticatedAdminResourceIdRoute
+  '/admin/$resource/new': typeof AuthenticatedAdminResourceNewRoute
+  '/admin/$resource/': typeof AuthenticatedAdminResourceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -248,6 +286,10 @@ export interface FileRoutesByTo {
   '/events': typeof EventsIndexRoute
   '/gallery': typeof GalleryIndexRoute
   '/news': typeof NewsIndexRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/$resource/$id': typeof AuthenticatedAdminResourceIdRoute
+  '/admin/$resource/new': typeof AuthenticatedAdminResourceNewRoute
+  '/admin/$resource': typeof AuthenticatedAdminResourceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -266,6 +308,7 @@ export interface FileRoutesById {
   '/student-success': typeof StudentSuccessRoute
   '/verify-certificate': typeof VerifyCertificateRoute
   '/vision': typeof VisionRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/staff': typeof AuthenticatedStaffRouteRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRoute
   '/courses/$slug': typeof CoursesSlugRoute
@@ -280,7 +323,11 @@ export interface FileRoutesById {
   '/events/': typeof EventsIndexRoute
   '/gallery/': typeof GalleryIndexRoute
   '/news/': typeof NewsIndexRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/staff/': typeof AuthenticatedStaffIndexRoute
+  '/_authenticated/admin/$resource/$id': typeof AuthenticatedAdminResourceIdRoute
+  '/_authenticated/admin/$resource/new': typeof AuthenticatedAdminResourceNewRoute
+  '/_authenticated/admin/$resource/': typeof AuthenticatedAdminResourceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -299,6 +346,7 @@ export interface FileRouteTypes {
     | '/student-success'
     | '/verify-certificate'
     | '/vision'
+    | '/admin'
     | '/portal'
     | '/courses/$slug'
     | '/departments/$slug'
@@ -312,7 +360,11 @@ export interface FileRouteTypes {
     | '/events/'
     | '/gallery/'
     | '/news/'
+    | '/admin/'
     | '/staff/'
+    | '/admin/$resource/$id'
+    | '/admin/$resource/new'
+    | '/admin/$resource/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -342,6 +394,10 @@ export interface FileRouteTypes {
     | '/events'
     | '/gallery'
     | '/news'
+    | '/admin'
+    | '/admin/$resource/$id'
+    | '/admin/$resource/new'
+    | '/admin/$resource'
   id:
     | '__root__'
     | '/'
@@ -359,6 +415,7 @@ export interface FileRouteTypes {
     | '/student-success'
     | '/verify-certificate'
     | '/vision'
+    | '/_authenticated/admin'
     | '/_authenticated/staff'
     | '/_authenticated/portal'
     | '/courses/$slug'
@@ -373,7 +430,11 @@ export interface FileRouteTypes {
     | '/events/'
     | '/gallery/'
     | '/news/'
+    | '/_authenticated/admin/'
     | '/_authenticated/staff/'
+    | '/_authenticated/admin/$resource/$id'
+    | '/_authenticated/admin/$resource/new'
+    | '/_authenticated/admin/$resource/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -513,6 +574,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VisionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/portal': {
       id: '/_authenticated/portal'
       path: '/portal'
@@ -611,6 +679,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/staff/': {
       id: '/_authenticated/staff/'
       path: '/'
@@ -618,8 +693,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStaffIndexRouteImport
       parentRoute: typeof AuthenticatedStaffRouteRoute
     }
+    '/_authenticated/admin/$resource/': {
+      id: '/_authenticated/admin/$resource/'
+      path: '/$resource'
+      fullPath: '/admin/$resource/'
+      preLoaderRoute: typeof AuthenticatedAdminResourceIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/$resource/$id': {
+      id: '/_authenticated/admin/$resource/$id'
+      path: '/$resource/$id'
+      fullPath: '/admin/$resource/$id'
+      preLoaderRoute: typeof AuthenticatedAdminResourceIdRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/$resource/new': {
+      id: '/_authenticated/admin/$resource/new'
+      path: '/$resource/new'
+      fullPath: '/admin/$resource/new'
+      preLoaderRoute: typeof AuthenticatedAdminResourceNewRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
   }
 }
+
+interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedAdminResourceIdRoute: typeof AuthenticatedAdminResourceIdRoute
+  AuthenticatedAdminResourceNewRoute: typeof AuthenticatedAdminResourceNewRoute
+  AuthenticatedAdminResourceIndexRoute: typeof AuthenticatedAdminResourceIndexRoute
+}
+
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+    AuthenticatedAdminResourceIdRoute: AuthenticatedAdminResourceIdRoute,
+    AuthenticatedAdminResourceNewRoute: AuthenticatedAdminResourceNewRoute,
+    AuthenticatedAdminResourceIndexRoute: AuthenticatedAdminResourceIndexRoute,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
 
 interface AuthenticatedStaffRouteRouteChildren {
   AuthenticatedStaffIndexRoute: typeof AuthenticatedStaffIndexRoute
@@ -636,11 +752,13 @@ const AuthenticatedStaffRouteRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
   AuthenticatedStaffRouteRoute: typeof AuthenticatedStaffRouteRouteWithChildren
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
   AuthenticatedStaffRouteRoute: AuthenticatedStaffRouteRouteWithChildren,
   AuthenticatedPortalRoute: AuthenticatedPortalRoute,
 }
