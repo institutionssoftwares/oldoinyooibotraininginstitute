@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Markdown } from "@/lib/markdown";
 import { MediaPickerDialog } from "./MediaPicker";
 
-type Props = { value: string; onChange: (v: string) => void; id?: string; placeholder?: string; rows?: number };
+type Props = { value: string; onChange: (v: string) => void; id?: string | undefined; placeholder?: string | undefined; rows?: number | undefined };
 
 /** Markdown-based rich text editor with a toolbar and live preview (no raw HTML). */
 export function RichTextEditor({ value, onChange, id, placeholder, rows = 12 }: Props) {
