@@ -141,13 +141,13 @@ function Home() {
             <img
               src={classroomImage.url}
               alt="Trainer addressing students in an OOTI classroom"
-              className="h-56 w-full rounded-xl object-cover shadow-lift sm:h-64"
+              className="w-full rounded-xl bg-navy/5 object-contain shadow-lift"
               loading="lazy"
             />
             <img
               src={electricalImage.url}
               alt="Trainees wiring a distribution board in the electrical workshop"
-              className="h-56 w-full rounded-xl object-cover shadow-lift sm:mt-8 sm:h-64"
+              className="w-full rounded-xl bg-navy/5 object-contain shadow-lift sm:mt-8"
               loading="lazy"
             />
           </div>
@@ -160,7 +160,7 @@ function Home() {
           <img
             src={studentsWalkImage.url}
             alt="OOTI trainees walking together on campus grounds"
-            className="h-72 w-full rounded-xl object-cover shadow-card lg:h-96"
+            className="w-full rounded-xl bg-navy/5 object-contain shadow-card"
             loading="lazy"
           />
           <div>
@@ -381,7 +381,7 @@ function Home() {
           <img
             src={cosmetologyImage.url}
             alt="Braiding and styling work completed by OOTI cosmetology trainees"
-            className="h-80 w-full rounded-xl object-cover shadow-card lg:h-[26rem]"
+            className="w-full rounded-xl bg-navy/5 object-contain shadow-card"
             loading="lazy"
           />
         </div>
@@ -465,7 +465,7 @@ function Home() {
             <img
               src={staffImage.url}
               alt="OOTI staff reviewing training records together"
-              className="h-64 w-full object-cover lg:h-full"
+              className="h-full w-full bg-navy/5 object-contain"
               loading="lazy"
             />
             <div className="p-8 lg:p-12">

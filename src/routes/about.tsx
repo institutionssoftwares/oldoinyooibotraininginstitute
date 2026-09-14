@@ -74,7 +74,7 @@ function About() {
           <img
             src={entranceImage.url}
             alt="Trainees standing at the entrance of Oldoinyo Oibor Training Institute"
-            className="h-72 w-full rounded-xl object-cover shadow-card lg:h-96"
+            className="w-full rounded-xl bg-navy/5 object-contain shadow-card"
             loading="lazy"
           />
           <div>
@@ -131,7 +131,7 @@ function About() {
           <img
             src={outreachImage.url}
             alt="OOTI trainer speaking with secondary school students during an outreach session"
-            className="mt-10 h-72 w-full rounded-xl object-cover shadow-card lg:h-96"
+            className="mt-10 w-full rounded-xl bg-navy/5 object-contain shadow-card"
             loading="lazy"
           />
         </div>

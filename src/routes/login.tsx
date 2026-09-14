@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/ooti-logo.asset.json";
+import { SITE_URL } from "@/lib/site";
 
 function safeRedirect(value: unknown): string | undefined {
   return typeof value === "string" && value.startsWith("/") && !value.startsWith("//")
@@ -75,7 +76,7 @@ function Login() {
       email: String(form.get("email") ?? "").trim(),
       password: String(form.get("password") ?? ""),
       options: {
-        emailRedirectTo: `${window.location.origin}/portal`,
+        emailRedirectTo: `${SITE_URL}/portal`,
         data: { full_name: String(form.get("full_name") ?? "").trim() },
       },
     });

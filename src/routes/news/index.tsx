@@ -60,7 +60,7 @@ function News() {
                     <img
                       src={post.image_url}
                       alt=""
-                      className="h-44 w-full object-cover"
+                      className="max-h-64 w-full bg-navy/5 object-contain"
                       loading="lazy"
                     />
                   ) : null}

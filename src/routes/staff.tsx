@@ -56,7 +56,7 @@ function Staff() {
                     <img
                       src={person.photo_url}
                       alt={person.full_name}
-                      className="h-56 w-full object-cover"
+                      className="h-56 w-full bg-navy/5 object-contain"
                       loading="lazy"
                     />
                   ) : null}
