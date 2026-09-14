@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/ooti-logo.asset.json";
+import { SITE_URL } from "@/lib/site";
 
 function safeRedirect(value: unknown): string | undefined {
   return typeof value === "string" && value.startsWith("/") && !value.startsWith("//")
@@ -75,7 +76,7 @@ function Login() {
       email: String(form.get("email") ?? "").trim(),
       password: String(form.get("password") ?? ""),
       options: {
-        emailRedirectTo: `${window.location.origin}/portal`,
+        emailRedirectTo: `${SITE_URL}/portal`,
         data: { full_name: String(form.get("full_name") ?? "").trim() },
       },
     });
@@ -120,6 +121,27 @@ function Login() {
               <Button type="submit" variant="gold" disabled={busy}>
                 {busy ? "Please wait…" : "Sign in"}
               </Button>
+              <button
+                type="button"
+                disabled={busy}
+                className="text-center text-sm text-primary hover:underline"
+                onClick={async (e) => {
+                  const email = String(new FormData(e.currentTarget.form!).get("email") ?? "").trim();
+                  if (!email) {
+                    toast.error("Enter your email first, then click “Forgot password”.");
+                    return;
+                  }
+                  setBusy(true);
+                  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                    redirectTo: `${SITE_URL}/reset-password`,
+                  });
+                  setBusy(false);
+                  if (error) toast.error(error.message);
+                  else toast.success("Password reset link sent. Check your email.");
+                }}
+              >
+                Forgot password?
+              </button>
             </form>
           </TabsContent>
 

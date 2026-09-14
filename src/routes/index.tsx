@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { INSTITUTION, whatsappLink } from "@/lib/site";
+import { INSTITUTION, SITE_URL, whatsappLink } from "@/lib/site";
 import { coursesQuery, departmentsQuery, eventsQuery, newsQuery } from "@/lib/queries";
 import heroImage from "@/assets/campus-entrance.asset.json";
 import classroomImage from "@/assets/campus-classroom.asset.json";
@@ -22,6 +22,8 @@ import electricalImage from "@/assets/electrical-workshop.asset.json";
 import cosmetologyImage from "@/assets/cosmetology.asset.json";
 import studentsWalkImage from "@/assets/students-walk.asset.json";
 import staffImage from "@/assets/staff-meeting.asset.json";
+
+const OG_IMAGE = `${SITE_URL}/assets/students-entrance.jpeg`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,11 +34,45 @@ export const Route = createFileRoute("/")({
         content:
           "Oldoinyo Oibor Training Institute, Loitokitok: plumbing, cosmetology, electrical, ICT and digital skills courses. Apply online today.",
       },
+      {
+        name: "keywords",
+        content:
+          "Oldoinyo Oibor Training Institute, OOTI, Loitokitok college, TVET Kajiado, vocational training Kenya, plumbing course Loitokitok, electrical course, cosmetology course, ICT training, NITA, CDACC",
+      },
       { property: "og:title", content: "Oldoinyo Oibor Training Institute (OOTI) Loitokitok" },
       {
         property: "og:description",
         content:
           "Empowering skills. Creating opportunities. Transforming lives. Apply for NITA and CDACC accredited training.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: INSTITUTION.name,
+          alternateName: INSTITUTION.shortName,
+          url: SITE_URL,
+          logo: `${SITE_URL}/assets/ooti-logo.jpeg`,
+          image: OG_IMAGE,
+          slogan: INSTITUTION.motto,
+          email: INSTITUTION.email,
+          telephone: `+${INSTITUTION.whatsapp}`,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: INSTITUTION.location,
+            addressLocality: "Loitokitok",
+            addressRegion: "Kajiado County",
+            addressCountry: "KE",
+          },
+          sameAs: [`https://wa.me/${INSTITUTION.whatsapp}`],
+        }),
       },
     ],
   }),
@@ -141,13 +177,13 @@ function Home() {
             <img
               src={classroomImage.url}
               alt="Trainer addressing students in an OOTI classroom"
-              className="h-56 w-full rounded-xl object-cover shadow-lift sm:h-64"
+              className="w-full rounded-xl bg-navy/5 object-contain shadow-lift"
               loading="lazy"
             />
             <img
               src={electricalImage.url}
               alt="Trainees wiring a distribution board in the electrical workshop"
-              className="h-56 w-full rounded-xl object-cover shadow-lift sm:mt-8 sm:h-64"
+              className="w-full rounded-xl bg-navy/5 object-contain shadow-lift sm:mt-8"
               loading="lazy"
             />
           </div>
@@ -160,7 +196,7 @@ function Home() {
           <img
             src={studentsWalkImage.url}
             alt="OOTI trainees walking together on campus grounds"
-            className="h-72 w-full rounded-xl object-cover shadow-card lg:h-96"
+            className="w-full rounded-xl bg-navy/5 object-contain shadow-card"
             loading="lazy"
           />
           <div>
@@ -381,7 +417,7 @@ function Home() {
           <img
             src={cosmetologyImage.url}
             alt="Braiding and styling work completed by OOTI cosmetology trainees"
-            className="h-80 w-full rounded-xl object-cover shadow-card lg:h-[26rem]"
+            className="w-full rounded-xl bg-navy/5 object-contain shadow-card"
             loading="lazy"
           />
         </div>
@@ -465,7 +501,7 @@ function Home() {
             <img
               src={staffImage.url}
               alt="OOTI staff reviewing training records together"
-              className="h-64 w-full object-cover lg:h-full"
+              className="h-full w-full bg-navy/5 object-contain"
               loading="lazy"
             />
             <div className="p-8 lg:p-12">

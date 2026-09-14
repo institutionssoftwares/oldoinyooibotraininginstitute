@@ -32,7 +32,7 @@ function ImagesField({ value, onChange }: { value: string[]; onChange: (v: strin
       <div className="flex flex-wrap gap-2">
         {value.map((url, i) => (
           <div key={url + i} className="relative size-20 overflow-hidden rounded-lg border bg-muted">
-            <img src={url} alt="" className="size-full object-cover" />
+            <img src={url} alt="" className="size-full object-contain" />
             <button
               type="button"
               className="absolute right-1 top-1 rounded-full bg-black/60 p-0.5 text-white"

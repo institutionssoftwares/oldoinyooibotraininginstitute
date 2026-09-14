@@ -115,7 +115,7 @@ export function MediaPickerDialog({ open, onOpenChange, onSelect, multiple, imag
 
 export function MediaThumb({ media, className }: { media: Pick<MediaRow, "url" | "mime_type" | "file_name" | "alt_text">; className?: string }) {
   if (media.mime_type?.startsWith("image/")) {
-    return <img src={media.url} alt={media.alt_text ?? ""} className={cn("size-full object-cover", className)} loading="lazy" />;
+    return <img src={media.url} alt={media.alt_text ?? ""} className={cn("size-full object-contain", className)} loading="lazy" />;
   }
   return (
     <div className={cn("flex size-full flex-col items-center justify-center gap-1 p-2 text-muted-foreground", className)}>
@@ -145,7 +145,7 @@ export function MediaField({
       <div className="flex size-24 shrink-0 items-center justify-center overflow-hidden rounded-lg border bg-muted">
         {value ? (
           imagesOnly || /\.(png|jpe?g|webp|gif|avif)(\?|$)/i.test(value) ? (
-            <img src={value} alt="" className="size-full object-cover" />
+            <img src={value} alt="" className="size-full object-contain" />
           ) : (
             <FileText className="size-8 text-muted-foreground" />
           )

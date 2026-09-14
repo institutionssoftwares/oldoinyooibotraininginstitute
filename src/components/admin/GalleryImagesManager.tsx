@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { MediaPickerDialog } from "@/components/admin/MediaPicker";
+import { MediaUploader } from "@/components/admin/MediaUploader";
 import { supabase } from "@/integrations/supabase/client";
 
 type GalleryImage = {
@@ -80,12 +81,20 @@ export function GalleryImagesManager({ albumId }: { albumId: string }) {
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Album photos</h2>
-          <p className="mt-1 text-xs text-muted-foreground">Photos shown on the public album page.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Photos shown in full on the public album page.</p>
         </div>
-        <Button variant="navy" size="sm" onClick={() => setPick(true)}>
-          <Plus className="size-4" /> Add photos
+        <Button variant="outline" size="sm" onClick={() => setPick(true)}>
+          <Plus className="size-4" /> Pick from library
         </Button>
       </div>
+
+      <MediaUploader
+        category="gallery"
+        bucket="public-media"
+        multiple
+        className="mb-4"
+        onUploaded={(rows) => add.mutate(rows.map((r) => r.url))}
+      />
 
       {images.isLoading ? (
         <p className="py-8 text-center text-sm text-muted-foreground">Loading photos…</p>
@@ -130,7 +139,7 @@ export function GalleryImagesManager({ albumId }: { albumId: string }) {
         </div>
       ) : (
         <p className="rounded-lg border border-dashed py-8 text-center text-sm text-muted-foreground">
-          No photos yet. Click “Add photos” to upload or pick from the media library.
+          No photos yet. Drop photos in the box above or pick from the media library.
         </p>
       )}
 

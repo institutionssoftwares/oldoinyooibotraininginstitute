@@ -7,6 +7,7 @@ import { GalleryImagesManager } from "@/components/admin/GalleryImagesManager";
 import { ResourceForm } from "@/components/admin/ResourceForm";
 import { getRow } from "@/lib/admin/api";
 import type { ResourceDef } from "@/lib/admin/resources";
+import { SITE_URL } from "@/lib/site";
 
 export function ResourceEditPage({ def, id }: { def: ResourceDef; id: string }) {
   const navigate = useNavigate();
@@ -38,8 +39,8 @@ export function ResourceEditPage({ def, id }: { def: ResourceDef; id: string }) 
         </div>
         {preview ? (
           <Button asChild variant="outline" size="sm">
-            <a href={preview} target="_blank" rel="noreferrer">
-              <ExternalLink className="size-4" /> Preview on site
+            <a href={`${SITE_URL}${preview}`} target="_blank" rel="noreferrer">
+              <ExternalLink className="size-4" /> View on website
             </a>
           </Button>
         ) : null}

@@ -27,20 +27,28 @@ export function MediaUploader({ category, accept = "image/*", multiple = true, b
       if (list.length === 0) return;
       setBusy(true);
       setProgress({ done: 0, total: list.length });
-      const uploaded: MediaRow[] = [];
-      for (const file of list) {
-        try {
-          const row = await uploadMedia(file, { category, bucket });
-          uploaded.push(row);
-        } catch (e) {
-          toast.error(`Upload failed: ${file.name}`, { description: e instanceof Error ? e.message : String(e) });
+      const uploaded: (MediaRow | null)[] = new Array(list.length).fill(null);
+      // Upload 4 files at a time so 40-100+ photos finish quickly without overwhelming the browser.
+      const CONCURRENCY = 4;
+      let next = 0;
+      const worker = async () => {
+        while (next < list.length) {
+          const i = next++;
+          const file = list[i]!;
+          try {
+            uploaded[i] = await uploadMedia(file, { category, bucket });
+          } catch (e) {
+            toast.error(`Upload failed: ${file.name}`, { description: e instanceof Error ? e.message : String(e) });
+          }
+          setProgress((p) => ({ ...p, done: p.done + 1 }));
         }
-        setProgress((p) => ({ ...p, done: p.done + 1 }));
-      }
+      };
+      await Promise.all(Array.from({ length: Math.min(CONCURRENCY, list.length) }, worker));
       setBusy(false);
-      if (uploaded.length) {
-        toast.success(`${uploaded.length} file${uploaded.length > 1 ? "s" : ""} uploaded`);
-        onUploaded(uploaded);
+      const rows = uploaded.filter((r): r is MediaRow => r !== null);
+      if (rows.length) {
+        toast.success(`${rows.length} file${rows.length > 1 ? "s" : ""} uploaded`);
+        onUploaded(rows);
       }
       if (inputRef.current) inputRef.current.value = "";
     },
@@ -76,7 +84,7 @@ export function MediaUploader({ category, accept = "image/*", multiple = true, b
       <p className="text-sm font-medium">
         {busy ? `Uploading ${progress.done}/${progress.total}…` : compact ? "Upload" : "Drag & drop files here, or click to browse"}
       </p>
-      {!compact && !busy ? <p className="text-xs text-muted-foreground">Images are optimised automatically (max 1920px). {multiple ? "Multiple files supported." : ""}</p> : null}
+      {!compact && !busy ? <p className="text-xs text-muted-foreground">Images are optimised automatically (max 1920px). {multiple ? "Select as many photos as you like — 40, 100 or more at once." : ""}</p> : null}
     </div>
   );
 }

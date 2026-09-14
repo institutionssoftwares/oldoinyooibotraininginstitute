@@ -66,7 +66,7 @@ function EventDetail() {
             <img
               src={e.image_url}
               alt=""
-              className="mb-8 w-full rounded-xl object-cover shadow-card"
+              className="mb-8 max-h-[36rem] w-full rounded-xl bg-navy/5 object-contain shadow-card"
               loading="lazy"
             />
           ) : null}
