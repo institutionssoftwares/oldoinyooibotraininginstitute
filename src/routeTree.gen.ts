@@ -20,6 +20,7 @@ import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MissionRouteImport } from './routes/mission'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as StaffRouteImport } from './routes/staff'
 import { Route as StudentSuccessRouteImport } from './routes/student-success'
 import { Route as VerifyCertificateRouteImport } from './routes/verify-certificate'
@@ -100,6 +101,11 @@ const LoginRoute = LoginRouteImport.update({
 const MissionRoute = MissionRouteImport.update({
   id: '/mission',
   path: '/mission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StaffRoute = StaffRouteImport.update({
@@ -254,6 +260,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/mission': typeof MissionRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/staff': typeof AuthenticatedStaffRouteRouteWithChildren
   '/student-success': typeof StudentSuccessRoute
   '/verify-certificate': typeof VerifyCertificateRoute
@@ -292,6 +299,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/mission': typeof MissionRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/staff': typeof AuthenticatedStaffIndexRoute
   '/student-success': typeof StudentSuccessRoute
   '/verify-certificate': typeof VerifyCertificateRoute
@@ -330,6 +338,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/login': typeof LoginRoute
   '/mission': typeof MissionRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/staff': typeof StaffRoute
   '/student-success': typeof StudentSuccessRoute
   '/verify-certificate': typeof VerifyCertificateRoute
@@ -371,6 +380,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/login'
     | '/mission'
+    | '/reset-password'
     | '/staff'
     | '/student-success'
     | '/verify-certificate'
@@ -409,6 +419,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/login'
     | '/mission'
+    | '/reset-password'
     | '/staff'
     | '/student-success'
     | '/verify-certificate'
@@ -446,6 +457,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/login'
     | '/mission'
+    | '/reset-password'
     | '/staff'
     | '/student-success'
     | '/verify-certificate'
@@ -487,6 +499,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   LoginRoute: typeof LoginRoute
   MissionRoute: typeof MissionRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   StaffRoute: typeof StaffRoute
   StudentSuccessRoute: typeof StudentSuccessRoute
   VerifyCertificateRoute: typeof VerifyCertificateRoute
@@ -582,6 +595,13 @@ declare module '@tanstack/react-router' {
       path: '/mission'
       fullPath: '/mission'
       preLoaderRoute: typeof MissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/staff': {
@@ -843,6 +863,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   LoginRoute: LoginRoute,
   MissionRoute: MissionRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   StaffRoute: StaffRoute,
   StudentSuccessRoute: StudentSuccessRoute,
   VerifyCertificateRoute: VerifyCertificateRoute,
