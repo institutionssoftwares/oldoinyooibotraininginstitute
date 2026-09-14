@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { INSTITUTION, whatsappLink } from "@/lib/site";
+import { INSTITUTION, SITE_URL, whatsappLink } from "@/lib/site";
 import { coursesQuery, departmentsQuery, eventsQuery, newsQuery } from "@/lib/queries";
 import heroImage from "@/assets/campus-entrance.asset.json";
 import classroomImage from "@/assets/campus-classroom.asset.json";
@@ -22,6 +22,8 @@ import electricalImage from "@/assets/electrical-workshop.asset.json";
 import cosmetologyImage from "@/assets/cosmetology.asset.json";
 import studentsWalkImage from "@/assets/students-walk.asset.json";
 import staffImage from "@/assets/staff-meeting.asset.json";
+
+const OG_IMAGE = `${SITE_URL}/assets/students-entrance.jpeg`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,11 +34,45 @@ export const Route = createFileRoute("/")({
         content:
           "Oldoinyo Oibor Training Institute, Loitokitok: plumbing, cosmetology, electrical, ICT and digital skills courses. Apply online today.",
       },
+      {
+        name: "keywords",
+        content:
+          "Oldoinyo Oibor Training Institute, OOTI, Loitokitok college, TVET Kajiado, vocational training Kenya, plumbing course Loitokitok, electrical course, cosmetology course, ICT training, NITA, CDACC",
+      },
       { property: "og:title", content: "Oldoinyo Oibor Training Institute (OOTI) Loitokitok" },
       {
         property: "og:description",
         content:
           "Empowering skills. Creating opportunities. Transforming lives. Apply for NITA and CDACC accredited training.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: INSTITUTION.name,
+          alternateName: INSTITUTION.shortName,
+          url: SITE_URL,
+          logo: `${SITE_URL}/assets/ooti-logo.jpeg`,
+          image: OG_IMAGE,
+          slogan: INSTITUTION.motto,
+          email: INSTITUTION.email,
+          telephone: `+${INSTITUTION.whatsapp}`,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: INSTITUTION.location,
+            addressLocality: "Loitokitok",
+            addressRegion: "Kajiado County",
+            addressCountry: "KE",
+          },
+          sameAs: [`https://wa.me/${INSTITUTION.whatsapp}`],
+        }),
       },
     ],
   }),
