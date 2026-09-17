@@ -1255,22 +1255,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      can_manage_academics: { Args: { _user_id: string }; Returns: boolean }
-      can_manage_admissions: { Args: { _user_id: string }; Returns: boolean }
-      can_manage_content: { Args: { _user_id: string }; Returns: boolean }
       content_is_live: {
         Args: { _publish_at: string; _status: string }
         Returns: boolean
       }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
-      is_admin: { Args: { _user_id: string }; Returns: boolean }
-      is_portal_staff: { Args: { _user_id: string }; Returns: boolean }
       is_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
