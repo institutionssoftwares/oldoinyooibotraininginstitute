@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 import logo from "@/assets/ooti-logo.asset.json";
+import euspanLogo from "@/assets/euspan-logo.asset.json";
 import { INSTITUTION } from "@/lib/site";
 
 const quickLinks = [
@@ -96,6 +97,47 @@ export function SiteFooter() {
               </a>
             </li>
           </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-navy-foreground/15">
+        <div className="container-page flex flex-col items-center gap-5 py-8 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div className="flex items-center gap-4">
+            <img
+              src={euspanLogo.url}
+              alt="Euspan Solutions logo — ICT and digital solutions company in Kenya"
+              className="size-14 rounded-full bg-white object-contain p-1"
+              width={56}
+              height={56}
+              loading="lazy"
+            />
+            <div>
+              <p className="font-display text-sm font-semibold uppercase tracking-[0.15em] text-gold">
+                Digital Partner
+              </p>
+              <p className="mt-1 max-w-md text-sm opacity-85">
+                Websites &amp; software that match your need or demand — websites, custom software,
+                mobile apps &amp; AI chatbots.
+              </p>
+            </div>
+          </div>
+          <div className="text-sm opacity-85">
+            <a
+              href="https://euspansolutions.co.ke"
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-gold hover:underline"
+            >
+              euspansolutions.co.ke
+            </a>
+            <p className="mt-1">
+              <a href="tel:+254769722940" className="hover:text-gold">0769 722 940</a>
+              {" · "}
+              <a href="mailto:infoeuspansolutions@gmail.com" className="break-all hover:text-gold">
+                infoeuspansolutions@gmail.com
+              </a>
+            </p>
+          </div>
         </div>
       </div>
 
