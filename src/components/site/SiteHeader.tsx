@@ -108,6 +108,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          {adminButton("sm")}
           {portalButton("sm")}
           <Button asChild variant="gold" size="sm">
             <Link to="/apply">Apply Now</Link>
@@ -139,6 +140,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <div className="mt-2 flex flex-wrap gap-2 [&>*]:flex-1">
+              {adminButton("default")}
               {portalButton("default")}
               <Button asChild variant="gold">
                 <Link to="/apply" onClick={() => setOpen(false)}>
