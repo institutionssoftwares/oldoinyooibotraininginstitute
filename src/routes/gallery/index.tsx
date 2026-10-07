@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Skeleton } from "@/components/ui/skeleton";
 import { albumsQuery } from "@/lib/queries";
+import { GallerySubmitForm } from "@/components/site/GallerySubmitForm";
 
 export const Route = createFileRoute("/gallery/")({
   head: () => ({
@@ -73,6 +74,9 @@ function Gallery() {
               ))}
             </div>
           )}
+          <div className="mx-auto mt-12 max-w-2xl">
+            <GallerySubmitForm />
+          </div>
         </div>
       </section>
     </>

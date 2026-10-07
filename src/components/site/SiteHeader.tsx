@@ -32,7 +32,7 @@ export function SiteHeader() {
       </Button>
     ) : (
       <Button asChild variant="navy" size={size}>
-        <Link to="/login" onClick={() => setOpen(false)}>
+        <Link to="/admin-login" onClick={() => setOpen(false)}>
           Admin Login
         </Link>
       </Button>

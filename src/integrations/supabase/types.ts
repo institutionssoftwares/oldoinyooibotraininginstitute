@@ -725,12 +725,15 @@ export type Database = {
           featured: boolean
           id: string
           image_url: string
+          is_submission: boolean
           location: string | null
           media_id: string | null
           publish_at: string | null
           published: boolean
           sort_order: number
           status: string
+          submitter_name: string | null
+          submitter_phone: string | null
           taken_at: string | null
           title: string | null
           updated_at: string
@@ -745,12 +748,15 @@ export type Database = {
           featured?: boolean
           id?: string
           image_url: string
+          is_submission?: boolean
           location?: string | null
           media_id?: string | null
           publish_at?: string | null
           published?: boolean
           sort_order?: number
           status?: string
+          submitter_name?: string | null
+          submitter_phone?: string | null
           taken_at?: string | null
           title?: string | null
           updated_at?: string
@@ -765,12 +771,15 @@ export type Database = {
           featured?: boolean
           id?: string
           image_url?: string
+          is_submission?: boolean
           location?: string | null
           media_id?: string | null
           publish_at?: string | null
           published?: boolean
           sort_order?: number
           status?: string
+          submitter_name?: string | null
+          submitter_phone?: string | null
           taken_at?: string | null
           title?: string | null
           updated_at?: string
