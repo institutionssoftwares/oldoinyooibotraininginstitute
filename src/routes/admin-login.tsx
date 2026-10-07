@@ -56,7 +56,7 @@ function AdminLogin() {
 
   const forgot = async (formEl: HTMLFormElement) => {
     const email = String(new FormData(formEl).get("email") ?? "").trim();
-    if (!email) return toast.error("Enter your email first.");
+    if (!email) { toast.error("Enter your email first."); return; }
     setBusy(true);
     const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${SITE_URL}/reset-password` });
     setBusy(false);
