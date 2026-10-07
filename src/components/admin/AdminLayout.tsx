@@ -40,6 +40,7 @@ const GROUPS: { label: string; items: NavItem[] }[] = [
       { to: "/admin/events", label: "Events", icon: CalendarDays, perm: "content" },
       { to: "/admin/announcements", label: "Announcements", icon: Megaphone, perm: "content" },
       { to: "/admin/albums", label: "Gallery albums", icon: Images, perm: "content" },
+      { to: "/admin/photo-submissions", label: "Photo submissions", icon: Images, perm: "content" },
       { to: "/admin/media", label: "Media library", icon: Images, perm: "content" },
       { to: "/admin/testimonials", label: "Testimonials", icon: Quote, perm: "content" },
       { to: "/admin/stories", label: "Success stories", icon: Trophy, perm: "content" },
@@ -70,7 +71,7 @@ export function AdminLayout({ permissions }: { permissions: Permissions }) {
 
   const signOut = async () => {
     await supabase.auth.signOut();
-    void navigate({ to: "/login", replace: true });
+    void navigate({ to: "/admin-login", replace: true });
   };
 
   const nav = (

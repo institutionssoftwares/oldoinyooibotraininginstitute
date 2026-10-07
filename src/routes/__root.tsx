@@ -142,7 +142,17 @@ function RootComponent() {
   const router = useRouter();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   // The admin portal is a standalone workspace: no public header/footer/WhatsApp.
-  const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
+  const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/") || pathname === "/admin-login";
+
+  // Email links (reset/verify) may land on the lovable.app address; forward them to the official domain.
+  useEffect(() => {
+    const { hostname, hash, search, pathname: p } = window.location;
+    if (!hostname.endsWith("lovable.app") || hostname.startsWith("id-preview")) return;
+    const isAuth = /access_token|type=recovery|error_description/.test(hash) || /[?&](code|token_hash)=/.test(search);
+    if (!isAuth) return;
+    const target = /type=recovery/.test(hash + search) ? "/reset-password" : p === "/" ? "/portal" : p;
+    window.location.replace(`${SITE_URL}${target}${search}${hash}`);
+  }, []);
 
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event) => {
