@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminLoginRouteImport } from './routes/admin-login'
 import { Route as AdmissionsRouteImport } from './routes/admissions'
 import { Route as ApplicationStatusRouteImport } from './routes/application-status'
 import { Route as ApplyRouteImport } from './routes/apply'
@@ -43,6 +44,7 @@ import { Route as NewsSlugRouteImport } from './routes/news/$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAdminHomepageRouteImport } from './routes/_authenticated/admin/homepage'
 import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin/media'
+import { Route as AuthenticatedAdminPhotoSubmissionsRouteImport } from './routes/_authenticated/admin/photo-submissions'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedStaffIndexRouteImport } from './routes/_authenticated/staff/index'
 import { Route as AuthenticatedAdminResourceIndexRouteImport } from './routes/_authenticated/admin/$resource/index'
@@ -61,6 +63,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin-login',
+  path: '/admin-login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdmissionsRoute = AdmissionsRouteImport.update({
@@ -219,6 +226,12 @@ const AuthenticatedAdminMediaRoute = AuthenticatedAdminMediaRouteImport.update({
   path: '/media',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminPhotoSubmissionsRoute =
+  AuthenticatedAdminPhotoSubmissionsRouteImport.update({
+    id: '/photo-submissions',
+    path: '/photo-submissions',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminSettingsRoute =
   AuthenticatedAdminSettingsRouteImport.update({
     id: '/settings',
@@ -252,6 +265,7 @@ const AuthenticatedAdminResourceNewRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin-login': typeof AdminLoginRoute
   '/admissions': typeof AdmissionsRoute
   '/application-status': typeof ApplicationStatusRoute
   '/apply': typeof ApplyRoute
@@ -281,6 +295,7 @@ export interface FileRoutesByFullPath {
   '/news/': typeof NewsIndexRoute
   '/admin/homepage': typeof AuthenticatedAdminHomepageRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
+  '/admin/photo-submissions': typeof AuthenticatedAdminPhotoSubmissionsRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/staff/': typeof AuthenticatedStaffIndexRoute
@@ -291,6 +306,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin-login': typeof AdminLoginRoute
   '/admissions': typeof AdmissionsRoute
   '/application-status': typeof ApplicationStatusRoute
   '/apply': typeof ApplyRoute
@@ -319,6 +335,7 @@ export interface FileRoutesByTo {
   '/news': typeof NewsIndexRoute
   '/admin/homepage': typeof AuthenticatedAdminHomepageRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
+  '/admin/photo-submissions': typeof AuthenticatedAdminPhotoSubmissionsRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/$resource/$id': typeof AuthenticatedAdminResourceIdRoute
@@ -330,6 +347,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/admin-login': typeof AdminLoginRoute
   '/admissions': typeof AdmissionsRoute
   '/application-status': typeof ApplicationStatusRoute
   '/apply': typeof ApplyRoute
@@ -360,6 +378,7 @@ export interface FileRoutesById {
   '/news/': typeof NewsIndexRoute
   '/_authenticated/admin/homepage': typeof AuthenticatedAdminHomepageRoute
   '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
+  '/_authenticated/admin/photo-submissions': typeof AuthenticatedAdminPhotoSubmissionsRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/staff/': typeof AuthenticatedStaffIndexRoute
@@ -372,6 +391,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin-login'
     | '/admissions'
     | '/application-status'
     | '/apply'
@@ -401,6 +421,7 @@ export interface FileRouteTypes {
     | '/news/'
     | '/admin/homepage'
     | '/admin/media'
+    | '/admin/photo-submissions'
     | '/admin/settings'
     | '/admin/'
     | '/staff/'
@@ -411,6 +432,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/admin-login'
     | '/admissions'
     | '/application-status'
     | '/apply'
@@ -439,6 +461,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/admin/homepage'
     | '/admin/media'
+    | '/admin/photo-submissions'
     | '/admin/settings'
     | '/admin'
     | '/admin/$resource/$id'
@@ -449,6 +472,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/admin-login'
     | '/admissions'
     | '/application-status'
     | '/apply'
@@ -479,6 +503,7 @@ export interface FileRouteTypes {
     | '/news/'
     | '/_authenticated/admin/homepage'
     | '/_authenticated/admin/media'
+    | '/_authenticated/admin/photo-submissions'
     | '/_authenticated/admin/settings'
     | '/_authenticated/admin/'
     | '/_authenticated/staff/'
@@ -491,6 +516,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AdminLoginRoute: typeof AdminLoginRoute
   AdmissionsRoute: typeof AdmissionsRoute
   ApplicationStatusRoute: typeof ApplicationStatusRoute
   ApplyRoute: typeof ApplyRoute
@@ -539,6 +565,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin-login': {
+      id: '/admin-login'
+      path: '/admin-login'
+      fullPath: '/admin-login'
+      preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admissions': {
@@ -758,6 +791,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminMediaRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/photo-submissions': {
+      id: '/_authenticated/admin/photo-submissions'
+      path: '/photo-submissions'
+      fullPath: '/admin/photo-submissions'
+      preLoaderRoute: typeof AuthenticatedAdminPhotoSubmissionsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/settings': {
       id: '/_authenticated/admin/settings'
       path: '/settings'
@@ -799,6 +839,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminHomepageRoute: typeof AuthenticatedAdminHomepageRoute
   AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
+  AuthenticatedAdminPhotoSubmissionsRoute: typeof AuthenticatedAdminPhotoSubmissionsRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminResourceIdRoute: typeof AuthenticatedAdminResourceIdRoute
@@ -810,6 +851,8 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
   {
     AuthenticatedAdminHomepageRoute: AuthenticatedAdminHomepageRoute,
     AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
+    AuthenticatedAdminPhotoSubmissionsRoute:
+      AuthenticatedAdminPhotoSubmissionsRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
     AuthenticatedAdminResourceIdRoute: AuthenticatedAdminResourceIdRoute,
@@ -855,6 +898,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AdminLoginRoute: AdminLoginRoute,
   AdmissionsRoute: AdmissionsRoute,
   ApplicationStatusRoute: ApplicationStatusRoute,
   ApplyRoute: ApplyRoute,
