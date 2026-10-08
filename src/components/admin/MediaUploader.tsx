@@ -84,7 +84,7 @@ export function MediaUploader({ category, accept = "image/*", multiple = true, b
       <p className="text-sm font-medium">
         {busy ? `Uploading ${progress.done}/${progress.total}…` : compact ? "Upload" : "Drag & drop files here, or click to browse"}
       </p>
-      {!compact && !busy ? <p className="text-xs text-muted-foreground">Images are optimised automatically (max 1920px). {multiple ? "Select as many photos as you like — 40, 100 or more at once." : ""}</p> : null}
+      {!compact && !busy ? <p className="text-xs text-muted-foreground">{category === "gallery" ? "Gallery photos are uploaded at full original quality and size." : "Images are optimised automatically (max 1920px)."} {multiple ? "Select as many photos as you like — 40, 100 or more at once." : ""}</p> : null}
     </div>
   );
 }

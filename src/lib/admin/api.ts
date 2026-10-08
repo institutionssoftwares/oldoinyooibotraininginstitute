@@ -134,7 +134,8 @@ export async function uploadMedia(
   opts: { category: MediaCategory; bucket?: "public-media" | "documents" | undefined; title?: string; alt?: string; onProgress?: (p: number) => void },
 ): Promise<MediaRow> {
   const bucket = opts.bucket ?? (file.type.startsWith("image/") ? "public-media" : "documents");
-  const prepared = bucket === "public-media" ? await optimizeImage(file) : file;
+  // Gallery photos are uploaded untouched so they never lose quality or size.
+  const prepared = bucket === "public-media" && opts.category !== "gallery" ? await optimizeImage(file) : file;
   const dims = await imageDimensions(prepared);
   const ext = prepared.name.split(".").pop()?.toLowerCase() ?? "bin";
   const safeBase = prepared.name
