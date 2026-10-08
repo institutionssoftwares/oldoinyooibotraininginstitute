@@ -61,7 +61,7 @@ function PasswordResets() {
                 <Button
                   variant="gold"
                   disabled={m.isPending || (pw[r.id] ?? "").length < 8}
-                  onClick={() => m.mutate({ id: r.id, action: "set_password", password: pw[r.id] })}
+                  onClick={() => m.mutate({ id: r.id, action: "set_password", password: pw[r.id] ?? "" })}
                 >
                   Set password
                 </Button>
