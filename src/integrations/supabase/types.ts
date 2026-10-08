@@ -1008,6 +1008,45 @@ export type Database = {
         }
         Relationships: []
       }
+      password_reset_requests: {
+        Row: {
+          account_type: string
+          created_at: string
+          email: string
+          full_name: string
+          handled_at: string | null
+          handled_by: string | null
+          id: string
+          note: string | null
+          phone: string | null
+          status: string
+        }
+        Insert: {
+          account_type?: string
+          created_at?: string
+          email: string
+          full_name: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          note?: string | null
+          phone?: string | null
+          status?: string
+        }
+        Update: {
+          account_type?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          note?: string | null
+          phone?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
