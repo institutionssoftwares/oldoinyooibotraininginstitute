@@ -19,6 +19,7 @@ import { Route as ApplyRouteImport } from './routes/apply'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MissionRouteImport } from './routes/mission'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -44,6 +45,7 @@ import { Route as NewsSlugRouteImport } from './routes/news/$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAdminHomepageRouteImport } from './routes/_authenticated/admin/homepage'
 import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin/media'
+import { Route as AuthenticatedAdminPasswordResetsRouteImport } from './routes/_authenticated/admin/password-resets'
 import { Route as AuthenticatedAdminPhotoSubmissionsRouteImport } from './routes/_authenticated/admin/photo-submissions'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedStaffIndexRouteImport } from './routes/_authenticated/staff/index'
@@ -98,6 +100,11 @@ const DownloadsRoute = DownloadsRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -226,6 +233,12 @@ const AuthenticatedAdminMediaRoute = AuthenticatedAdminMediaRouteImport.update({
   path: '/media',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminPasswordResetsRoute =
+  AuthenticatedAdminPasswordResetsRouteImport.update({
+    id: '/password-resets',
+    path: '/password-resets',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminPhotoSubmissionsRoute =
   AuthenticatedAdminPhotoSubmissionsRouteImport.update({
     id: '/photo-submissions',
@@ -272,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/mission': typeof MissionRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -295,6 +309,7 @@ export interface FileRoutesByFullPath {
   '/news/': typeof NewsIndexRoute
   '/admin/homepage': typeof AuthenticatedAdminHomepageRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
+  '/admin/password-resets': typeof AuthenticatedAdminPasswordResetsRoute
   '/admin/photo-submissions': typeof AuthenticatedAdminPhotoSubmissionsRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -313,6 +328,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/mission': typeof MissionRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -335,6 +351,7 @@ export interface FileRoutesByTo {
   '/news': typeof NewsIndexRoute
   '/admin/homepage': typeof AuthenticatedAdminHomepageRoute
   '/admin/media': typeof AuthenticatedAdminMediaRoute
+  '/admin/password-resets': typeof AuthenticatedAdminPasswordResetsRoute
   '/admin/photo-submissions': typeof AuthenticatedAdminPhotoSubmissionsRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -354,6 +371,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/downloads': typeof DownloadsRoute
   '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/mission': typeof MissionRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -378,6 +396,7 @@ export interface FileRoutesById {
   '/news/': typeof NewsIndexRoute
   '/_authenticated/admin/homepage': typeof AuthenticatedAdminHomepageRoute
   '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
+  '/_authenticated/admin/password-resets': typeof AuthenticatedAdminPasswordResetsRoute
   '/_authenticated/admin/photo-submissions': typeof AuthenticatedAdminPhotoSubmissionsRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -398,6 +417,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/downloads'
     | '/faq'
+    | '/forgot-password'
     | '/login'
     | '/mission'
     | '/reset-password'
@@ -421,6 +441,7 @@ export interface FileRouteTypes {
     | '/news/'
     | '/admin/homepage'
     | '/admin/media'
+    | '/admin/password-resets'
     | '/admin/photo-submissions'
     | '/admin/settings'
     | '/admin/'
@@ -439,6 +460,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/downloads'
     | '/faq'
+    | '/forgot-password'
     | '/login'
     | '/mission'
     | '/reset-password'
@@ -461,6 +483,7 @@ export interface FileRouteTypes {
     | '/news'
     | '/admin/homepage'
     | '/admin/media'
+    | '/admin/password-resets'
     | '/admin/photo-submissions'
     | '/admin/settings'
     | '/admin'
@@ -479,6 +502,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/downloads'
     | '/faq'
+    | '/forgot-password'
     | '/login'
     | '/mission'
     | '/reset-password'
@@ -503,6 +527,7 @@ export interface FileRouteTypes {
     | '/news/'
     | '/_authenticated/admin/homepage'
     | '/_authenticated/admin/media'
+    | '/_authenticated/admin/password-resets'
     | '/_authenticated/admin/photo-submissions'
     | '/_authenticated/admin/settings'
     | '/_authenticated/admin/'
@@ -523,6 +548,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DownloadsRoute: typeof DownloadsRoute
   FaqRoute: typeof FaqRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   MissionRoute: typeof MissionRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -614,6 +640,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -791,6 +824,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminMediaRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/password-resets': {
+      id: '/_authenticated/admin/password-resets'
+      path: '/password-resets'
+      fullPath: '/admin/password-resets'
+      preLoaderRoute: typeof AuthenticatedAdminPasswordResetsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/photo-submissions': {
       id: '/_authenticated/admin/photo-submissions'
       path: '/photo-submissions'
@@ -839,6 +879,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminHomepageRoute: typeof AuthenticatedAdminHomepageRoute
   AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
+  AuthenticatedAdminPasswordResetsRoute: typeof AuthenticatedAdminPasswordResetsRoute
   AuthenticatedAdminPhotoSubmissionsRoute: typeof AuthenticatedAdminPhotoSubmissionsRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -851,6 +892,8 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
   {
     AuthenticatedAdminHomepageRoute: AuthenticatedAdminHomepageRoute,
     AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
+    AuthenticatedAdminPasswordResetsRoute:
+      AuthenticatedAdminPasswordResetsRoute,
     AuthenticatedAdminPhotoSubmissionsRoute:
       AuthenticatedAdminPhotoSubmissionsRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
@@ -905,6 +948,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DownloadsRoute: DownloadsRoute,
   FaqRoute: FaqRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   MissionRoute: MissionRoute,
   ResetPasswordRoute: ResetPasswordRoute,

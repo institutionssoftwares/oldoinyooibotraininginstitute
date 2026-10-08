@@ -32,7 +32,13 @@ import { SITE_URL } from "@/lib/site";
 type NavItem = { to: string; label: string; icon: typeof Newspaper; perm?: Parameters<typeof can>[1] };
 
 const GROUPS: { label: string; items: NavItem[] }[] = [
-  { label: "Overview", items: [{ to: "/admin", label: "Dashboard", icon: LayoutDashboard }] },
+  {
+    label: "Overview",
+    items: [
+      { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
+      { to: "/admin/password-resets", label: "Password resets", icon: Users },
+    ],
+  },
   {
     label: "Website content",
     items: [
