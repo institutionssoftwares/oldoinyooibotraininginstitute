@@ -175,18 +175,28 @@ export const albumQuery = (slug: string) =>
     queryFn: async () => {
       const { data, error } = await supabase
         .from("gallery_albums")
-        .select("*, gallery_images(*)")
+        .select("id, title, description")
         .eq("slug", slug)
+        .eq("published", true)
         .maybeSingle();
       if (error) throw new Error(error.message);
-      return data as
-        | {
-            id: string;
-            title: string;
-            description: string | null;
-            gallery_images: Array<{ id: string; image_url: string; caption: string | null }>;
-          }
-        | null;
+      if (!data) return null;
+      const images: Array<{ id: string; image_url: string; caption: string | null }> = [];
+      for (let offset = 0; ; offset += 500) {
+        const { data: batch, error: imageError } = await supabase
+          .from("gallery_images")
+          .select("id, image_url, caption")
+          .eq("album_id", data.id)
+          .eq("published", true)
+          .order("sort_order")
+          .order("created_at")
+          .order("id")
+          .range(offset, offset + 499);
+        if (imageError) throw new Error(imageError.message);
+        images.push(...(batch ?? []));
+        if (!batch || batch.length < 500) break;
+      }
+      return { ...data, gallery_images: images };
     },
   });
 
