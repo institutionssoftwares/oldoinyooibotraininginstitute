@@ -29,7 +29,8 @@ export const requestPasswordReset = createServerFn({ method: "POST" })
   });
 
 async function assertAdmin(supabase: any, userId: string) {
-  const { data } = await supabase.from("user_roles").select("role").eq("user_id", userId);
+  const { data, error } = await supabase.from("user_roles").select("role").eq("user_id", userId);
+  if (error) throw new Error("Could not verify administrator access.");
   const roles = (data ?? []).map((r: { role: string }) => r.role);
   if (!roles.includes("admin") && !roles.includes("super_admin")) throw new Error("Forbidden");
 }
@@ -38,8 +39,7 @@ export const listResetRequests = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context.supabase, context.userId);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await context.supabase
       .from("password_reset_requests")
       .select("*")
       .order("created_at", { ascending: false })
@@ -64,25 +64,30 @@ export const resolveResetRequest = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: req, error } = await supabaseAdmin
       .from("password_reset_requests")
-      .select("email")
+      .select("email, status")
       .eq("id", data.id)
       .single();
     if (error || !req) throw new Error("Request not found");
+    if (req.status !== "pending") throw new Error("This request has already been handled.");
 
     if (data.action === "set_password") {
       if (!data.password) throw new Error("Enter a new password (8+ characters).");
-      const { data: prof } = await supabaseAdmin
+      const { data: prof, error: profileError } = await supabaseAdmin
         .from("profiles")
         .select("id")
-        .ilike("email", req.email)
+        .eq("email", req.email)
         .maybeSingle();
-      if (!prof) throw new Error("No account found with that email.");
+      if (profileError || !prof) throw new Error("No account found with that email.");
+      const { data: account, error: accountError } = await supabaseAdmin.auth.admin.getUserById(prof.id);
+      if (accountError || account.user?.email?.toLowerCase() !== req.email.toLowerCase()) {
+        throw new Error("Account email could not be verified.");
+      }
       const { error: upErr } = await supabaseAdmin.auth.admin.updateUserById(prof.id, {
         password: data.password,
       });
       if (upErr) throw new Error(upErr.message);
     }
-    await supabaseAdmin
+    const { error: statusError } = await supabaseAdmin
       .from("password_reset_requests")
       .update({
         status: data.action === "set_password" ? "done" : "rejected",
@@ -90,5 +95,6 @@ export const resolveResetRequest = createServerFn({ method: "POST" })
         handled_at: new Date().toISOString(),
       })
       .eq("id", data.id);
+    if (statusError) throw new Error(data.action === "set_password" ? "Password updated, but the request could not be marked complete. Refresh before trying again." : "Could not mark the request rejected. Please try again.");
     return { ok: true };
   });

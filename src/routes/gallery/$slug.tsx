@@ -17,6 +17,8 @@ export const Route = createFileRoute("/gallery/$slug")({
         },
         { property: "og:title", content: `${readable} | OOTI Gallery` },
         { property: "og:description", content: "Photos from OOTI Loitokitok." },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary" },
       ],
     };
   },
@@ -34,7 +36,7 @@ function Album() {
   if (!album.data) {
     return (
       <div className="container-page section-y">
-        <h1 className="font-display text-2xl font-bold">Album not found</h1>
+        <h1 className="font-display text-2xl font-bold">{album.isError ? "Could not load album" : "Album not found"}</h1>
         <Button asChild className="mt-6">
           <Link to="/gallery">Back to gallery</Link>
         </Button>
@@ -61,12 +63,15 @@ function Album() {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {images.map((image) => (
                 <figure key={image.id} className="overflow-hidden rounded-xl shadow-card">
-                  <img
-                    src={image.image_url}
-                    alt={image.caption ?? ""}
-                    className="max-h-[32rem] w-full bg-navy/5 object-contain"
-                    loading="lazy"
-                  />
+                  <a href={image.image_url} target="_blank" rel="noopener noreferrer" aria-label={`Open original photo${image.caption ? `: ${image.caption}` : ""}`} className="block focus-visible:ring-2 focus-visible:ring-ring">
+                    <img
+                      src={image.image_url}
+                      alt={image.caption ?? "OOTI gallery photo"}
+                      className="h-auto w-full bg-muted object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </a>
                   {image.caption ? (
                     <figcaption className="bg-card px-4 py-3 text-sm text-muted-foreground">
                       {image.caption}

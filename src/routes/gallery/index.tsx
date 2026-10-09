@@ -17,6 +17,8 @@ export const Route = createFileRoute("/gallery/")({
       },
       { property: "og:title", content: "OOTI Photo Gallery" },
       { property: "og:description", content: "Campus life and practical training in pictures." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Gallery,
@@ -58,7 +60,7 @@ function Gallery() {
                     <img
                       src={album.cover_url}
                       alt=""
-                      className="max-h-72 w-full bg-navy/5 object-contain"
+                       className="h-auto w-full bg-muted object-contain"
                       loading="lazy"
                     />
                   ) : null}

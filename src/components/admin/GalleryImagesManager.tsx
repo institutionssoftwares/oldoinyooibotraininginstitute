@@ -29,28 +29,38 @@ export function GalleryImagesManager({ albumId }: { albumId: string }) {
   const images = useQuery({
     queryKey: ["admin", "gallery_images", albumId],
     queryFn: async () => {
-      const { data, error } = await table().select("*").eq("album_id", albumId).order("sort_order").order("created_at");
-      if (error) throw new Error(error.message);
-      return (data ?? []) as GalleryImage[];
+      const rows: GalleryImage[] = [];
+      for (let offset = 0; ; offset += 500) {
+        const { data, error } = await table().select("*").eq("album_id", albumId).order("sort_order").order("created_at").order("id").range(offset, offset + 499);
+        if (error) throw new Error(error.message);
+        const batch = (data ?? []) as GalleryImage[];
+        rows.push(...batch);
+        if (batch.length < 500) return rows;
+      }
     },
   });
   const invalidate = () => qc.invalidateQueries({ queryKey: ["admin", "gallery_images", albumId] });
 
   const add = useMutation({
     mutationFn: async (urls: string[]) => {
+      const { data: last, error: lastError } = await table().select("sort_order").eq("album_id", albumId).order("sort_order", { ascending: false }).limit(1);
+      if (lastError) throw new Error(lastError.message);
+      const nextOrder = (last?.[0]?.sort_order ?? -1) + 1;
       const rows = urls.map((url, i) => ({
         album_id: albumId,
         image_url: url,
         published: true,
         status: "published",
-        sort_order: (images.data?.length ?? 0) + i,
+        sort_order: nextOrder + i,
       }));
-      const { error } = await table().insert(rows);
-      if (error) throw new Error(error.message);
+      for (let offset = 0; offset < rows.length; offset += 100) {
+        const { error } = await table().insert(rows.slice(offset, offset + 100));
+        if (error) throw new Error(error.message);
+      }
     },
     onSuccess: () => {
-      toast.success("Photos added");
       void invalidate();
+      void qc.invalidateQueries({ queryKey: ["album"] });
     },
     onError: (e) => toast.error(e.message),
   });
@@ -93,7 +103,7 @@ export function GalleryImagesManager({ albumId }: { albumId: string }) {
         bucket="public-media"
         multiple
         className="mb-4"
-        onUploaded={(rows) => add.mutate(rows.map((r) => r.url))}
+        onUploaded={async (rows) => { await add.mutateAsync(rows.map((r) => r.url)); }}
       />
 
       {images.isLoading ? (

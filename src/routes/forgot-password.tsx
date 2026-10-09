@@ -31,6 +31,8 @@ function ForgotPassword() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
+    const accountType = f.get("account_type");
+    if (accountType !== "student" && accountType !== "trainer" && accountType !== "staff") return;
     setBusy(true);
     try {
       await send({
@@ -38,7 +40,7 @@ function ForgotPassword() {
           full_name: String(f.get("full_name") ?? ""),
           email: String(f.get("email") ?? ""),
           phone: String(f.get("phone") ?? ""),
-          account_type: String(f.get("account_type") ?? "student") as "student",
+          account_type: accountType,
           note: String(f.get("note") ?? ""),
         },
       });

@@ -9,7 +9,15 @@ import { Input } from "@/components/ui/input";
 import { listResetRequests, resolveResetRequest } from "@/lib/password-reset.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/password-resets")({
-  head: () => ({ meta: [{ title: "Password reset requests | OOTI Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [
+    { title: "Password reset requests | OOTI Admin" },
+    { name: "description", content: "Manage OOTI student, trainer and staff password reset requests." },
+    { property: "og:title", content: "Password reset requests | OOTI Admin" },
+    { property: "og:description", content: "OOTI administrator account recovery management." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+    { name: "robots", content: "noindex" },
+  ] }),
   component: PasswordResets,
 });
 
@@ -24,7 +32,8 @@ function PasswordResets() {
     mutationFn: (v: { id: string; action: "set_password" | "reject"; password?: string }) => resolve({ data: v }),
     onSuccess: (_d, v) => {
       toast.success(v.action === "set_password" ? "Password updated. Give the new password to the account owner." : "Request rejected.");
-      qc.invalidateQueries({ queryKey: ["admin", "password-resets"] });
+      setPw((current) => { const next = { ...current }; delete next[v.id]; return next; });
+      void qc.invalidateQueries({ queryKey: ["admin", "password-resets"] });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
@@ -33,7 +42,7 @@ function PasswordResets() {
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-2xl font-bold text-primary">Password reset requests</h1>
-        <p className="text-sm text-muted-foreground">Set a new password, then give it to the account owner (e.g. by phone).</p>
+        <p className="text-sm text-muted-foreground">Verify the account owner’s identity before resetting their password. Share the new password privately.</p>
       </div>
       {q.isLoading && <p>Loading…</p>}
       {q.error && <p className="text-destructive">{(q.error as Error).message}</p>}
@@ -54,6 +63,10 @@ function PasswordResets() {
               <div className="mt-3 flex flex-wrap gap-2">
                 <Input
                   placeholder="New password (8+ characters)"
+                  type="password"
+                  autoComplete="new-password"
+                  aria-label={`New password for ${r.full_name}`}
+                  maxLength={72}
                   className="max-w-xs"
                   value={pw[r.id] ?? ""}
                   onChange={(e) => setPw((p) => ({ ...p, [r.id]: e.target.value }))}

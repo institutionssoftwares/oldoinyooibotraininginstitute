@@ -10,13 +10,14 @@ type Props = {
   accept?: string;
   multiple?: boolean;
   bucket?: "public-media" | "documents" | undefined;
-  onUploaded: (rows: MediaRow[]) => void;
+  onUploaded: (rows: MediaRow[]) => void | Promise<void>;
   className?: string;
   compact?: boolean;
 };
 
 export function MediaUploader({ category, accept = "image/*", multiple = true, bucket, onUploaded, className, compact }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const uploadingRef = useRef(false);
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState<{ done: number; total: number }>({ done: 0, total: 0 });
   const [dragging, setDragging] = useState(false);
@@ -24,33 +25,38 @@ export function MediaUploader({ category, accept = "image/*", multiple = true, b
   const handleFiles = useCallback(
     async (files: FileList | File[]) => {
       const list = Array.from(files).filter(Boolean);
-      if (list.length === 0) return;
+      if (list.length === 0 || uploadingRef.current) return;
+      uploadingRef.current = true;
       setBusy(true);
       setProgress({ done: 0, total: list.length });
-      const uploaded: (MediaRow | null)[] = new Array(list.length).fill(null);
-      // Upload 4 files at a time so 40-100+ photos finish quickly without overwhelming the browser.
-      const CONCURRENCY = 4;
-      let next = 0;
-      const worker = async () => {
-        while (next < list.length) {
-          const i = next++;
-          const file = list[i]!;
-          try {
-            uploaded[i] = await uploadMedia(file, { category, bucket });
-          } catch (e) {
-            toast.error(`Upload failed: ${file.name}`, { description: e instanceof Error ? e.message : String(e) });
+      let saved = 0;
+      try {
+        // Save each bounded batch before moving on; no total photo-count limit.
+        for (let offset = 0; offset < list.length; offset += 4) {
+          const results = await Promise.all(list.slice(offset, offset + 4).map(async (file) => {
+            try {
+              return await uploadMedia(file, { category, bucket });
+            } catch (e) {
+              toast.error(`Upload failed: ${file.name}`, { description: e instanceof Error ? e.message : String(e) });
+              return null;
+            } finally {
+              setProgress((p) => ({ ...p, done: p.done + 1 }));
+            }
+          }));
+          const rows = results.filter((r): r is MediaRow => r !== null);
+          if (rows.length) {
+            await onUploaded(rows);
+            saved += rows.length;
           }
-          setProgress((p) => ({ ...p, done: p.done + 1 }));
         }
-      };
-      await Promise.all(Array.from({ length: Math.min(CONCURRENCY, list.length) }, worker));
-      setBusy(false);
-      const rows = uploaded.filter((r): r is MediaRow => r !== null);
-      if (rows.length) {
-        toast.success(`${rows.length} file${rows.length > 1 ? "s" : ""} uploaded`);
-        onUploaded(rows);
+        if (saved) toast.success(`${saved} file${saved > 1 ? "s" : ""} uploaded`);
+      } catch (e) {
+        toast.error("Files uploaded, but could not be added. They remain in the media library.", { description: e instanceof Error ? e.message : String(e) });
+      } finally {
+        uploadingRef.current = false;
+        setBusy(false);
+        if (inputRef.current) inputRef.current.value = "";
       }
-      if (inputRef.current) inputRef.current.value = "";
     },
     [category, bucket, onUploaded],
   );
@@ -60,8 +66,14 @@ export function MediaUploader({ category, accept = "image/*", multiple = true, b
       role="button"
       tabIndex={0}
       aria-label="Upload files"
-      onClick={() => inputRef.current?.click()}
-      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && inputRef.current?.click()}
+      aria-disabled={busy}
+      onClick={() => { if (!busy) inputRef.current?.click(); }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          if (!busy) inputRef.current?.click();
+        }
+      }}
       onDragOver={(e) => {
         e.preventDefault();
         setDragging(true);
@@ -79,7 +91,7 @@ export function MediaUploader({ category, accept = "image/*", multiple = true, b
         className,
       )}
     >
-      <input ref={inputRef} type="file" accept={accept} multiple={multiple} className="sr-only" onChange={(e) => e.target.files && void handleFiles(e.target.files)} />
+      <input ref={inputRef} type="file" accept={accept} multiple={multiple} disabled={busy} className="sr-only" onChange={(e) => e.target.files && void handleFiles(e.target.files)} />
       {busy ? <Loader2 className="size-6 animate-spin text-primary" /> : <CloudUpload className="size-6 text-primary" />}
       <p className="text-sm font-medium">
         {busy ? `Uploading ${progress.done}/${progress.total}…` : compact ? "Upload" : "Drag & drop files here, or click to browse"}

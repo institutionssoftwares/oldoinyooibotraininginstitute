@@ -103,7 +103,10 @@ export async function optimizeImage(file: File, maxDim = 1920, quality = 0.85): 
 export async function imageDimensions(file: File): Promise<{ width: number; height: number } | null> {
   if (!file.type.startsWith("image/")) return null;
   const bmp = await createImageBitmap(file).catch(() => null);
-  return bmp ? { width: bmp.width, height: bmp.height } : null;
+  if (!bmp) return null;
+  const dimensions = { width: bmp.width, height: bmp.height };
+  bmp.close();
+  return dimensions;
 }
 
 export type MediaRow = {
@@ -145,7 +148,7 @@ export async function uploadMedia(
     .replace(/^-+|-+$/g, "")
     .slice(0, 40);
   const stamp = new Date();
-  const path = `${opts.category}/${stamp.getFullYear()}/${String(stamp.getMonth() + 1).padStart(2, "0")}/${Date.now().toString(36)}-${safeBase || "file"}.${ext}`;
+  const path = `${opts.category}/${stamp.getFullYear()}/${String(stamp.getMonth() + 1).padStart(2, "0")}/${crypto.randomUUID()}-${safeBase || "file"}.${ext}`;
 
   opts.onProgress?.(10);
   const { error: upErr } = await supabase.storage.from(bucket).upload(path, prepared, {
