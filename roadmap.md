@@ -1,5 +1,10 @@
 # OOTI CMS roadmap
 
+## Current completion request
+- [ ] Verify and finish administrator-mediated password resets.
+- [ ] Harden large gallery upload batches while preserving original files.
+- [ ] Display complete gallery photos and make originals accessible; verify in browser.
+
 - [x] DB: roles, content status/scheduling, media, announcements, testimonials, homepage_sections, audit_logs, interview stage, storage buckets + policies
 - [ ] Admin shell (/admin sidebar, role gate) + dashboard
 - [ ] Generic resource manager (list/filter/search/bulk/status) + audit
