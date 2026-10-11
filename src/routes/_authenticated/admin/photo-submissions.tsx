@@ -6,6 +6,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { ensureAlbum } from "@/lib/admin/gallery";
 
 export const Route = createFileRoute("/_authenticated/admin/photo-submissions")({
   head: () => ({ meta: [{ title: "Photo submissions | OOTI Admin" }, { name: "robots", content: "noindex" }] }),
@@ -42,12 +43,11 @@ function PhotoSubmissions() {
 
   const approve = useMutation({
     mutationFn: async (id: string) => {
-      const album_id = albumFor[id] || albums.data?.[0]?.id;
-      if (!album_id) throw new Error("Create a gallery album first.");
+      const album_id = await ensureAlbum(albumFor[id] || albums.data?.[0]?.id);
       const { error } = await supabase.from("gallery_images").update({ album_id, status: "published", published: true }).eq("id", id);
       if (error) throw new Error(error.message);
     },
-    onSuccess: () => { toast.success("Approved — now visible in the gallery"); void refresh(); },
+    onSuccess: () => { toast.success("Approved — now visible in the gallery"); void refresh(); void qc.invalidateQueries({ queryKey: ["admin", "albums-min"] }); void qc.invalidateQueries({ queryKey: ["album"] }); void qc.invalidateQueries({ queryKey: ["albums"] }); },
     onError: (e) => toast.error(e.message),
   });
 
