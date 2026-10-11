@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { Search, Trash2 } from "lucide-react";
+import { Images, Search, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { MediaThumb } from "@/components/admin/MediaPicker";
@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { deleteMedia, formatBytes, listMedia, updateMedia, type MediaRow } from "@/lib/admin/api";
+import { addPhotosToAlbum, ensureAlbum, listAlbums } from "@/lib/admin/gallery";
 
 export const Route = createFileRoute("/_authenticated/admin/media")({
   component: MediaLibraryRoute,
@@ -35,6 +36,26 @@ function MediaLibraryRoute() {
     onSuccess: () => {
       toast.success("Deleted");
       void invalidate();
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [album, setAlbum] = useState("");
+  const albums = useQuery({ queryKey: ["admin", "albums-min"], queryFn: listAlbums });
+  const toGallery = useMutation({
+    mutationFn: async () => {
+      const picked = (media.data?.rows ?? []).filter((r) => selected.has(r.id));
+      const id = await ensureAlbum(album || undefined);
+      await addPhotosToAlbum(id, picked.map((r) => ({ url: r.url, caption: r.caption, mediaId: r.id })));
+      return picked.length;
+    },
+    onSuccess: (n) => {
+      toast.success(`${n} photo${n > 1 ? "s" : ""} posted to the gallery`);
+      setSelected(new Set());
+      void qc.invalidateQueries({ queryKey: ["admin"] });
+      void qc.invalidateQueries({ queryKey: ["album"] });
+      void qc.invalidateQueries({ queryKey: ["albums"] });
     },
     onError: (e) => toast.error(e.message),
   });
@@ -73,14 +94,36 @@ function MediaLibraryRoute() {
 
       <MediaUploader category="gallery" onUploaded={() => void invalidate()} />
 
+      <div className="flex flex-wrap items-center gap-2 rounded-xl border bg-card p-3 text-sm">
+        <span className="font-medium">{selected.size} selected</span>
+        <Button size="sm" variant="outline" onClick={() => setSelected(new Set(rows.filter((r) => r.mime_type?.startsWith("image/")).map((r) => r.id)))}>Select all on page</Button>
+        {selected.size ? <Button size="sm" variant="ghost" onClick={() => setSelected(new Set())}>Clear</Button> : null}
+        <select className="h-9 rounded-md border border-input bg-background px-2" value={album} onChange={(e) => setAlbum(e.target.value)} aria-label="Gallery album">
+          <option value="">{albums.data?.length ? albums.data[0]?.title : "New album: Campus Life"}</option>
+          {(albums.data ?? []).slice(1).map((a) => <option key={a.id} value={a.id}>{a.title}</option>)}
+        </select>
+        <Button size="sm" disabled={!selected.size || toGallery.isPending} onClick={() => toGallery.mutate()}>
+          <Images className="size-4" /> {toGallery.isPending ? "Posting…" : "Post to gallery"}
+        </Button>
+      </div>
+
       {media.isLoading ? (
         <p className="py-12 text-center text-sm text-muted-foreground">Loading…</p>
       ) : rows.length ? (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {rows.map((m) => (
-            <figure key={m.id} className="group overflow-hidden rounded-xl border bg-card">
-              <div className="aspect-square bg-muted">
+            <figure key={m.id} className={`group overflow-hidden rounded-xl border bg-card ${selected.has(m.id) ? "ring-2 ring-primary" : ""}`}>
+              <div className="relative aspect-square bg-muted">
                 <MediaThumb media={m} />
+                {m.mime_type?.startsWith("image/") ? (
+                  <input
+                    type="checkbox"
+                    aria-label="Select photo"
+                    className="absolute left-2 top-2 size-5 accent-primary"
+                    checked={selected.has(m.id)}
+                    onChange={() => setSelected((s) => { const n = new Set(s); if (n.has(m.id)) n.delete(m.id); else n.add(m.id); return n; })}
+                  />
+                ) : null}
               </div>
               <figcaption className="flex flex-col gap-1.5 p-3">
                 <Input
