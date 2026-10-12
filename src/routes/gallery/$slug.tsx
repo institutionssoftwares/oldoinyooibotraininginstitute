@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Button } from "@/components/ui/button";
 import { albumQuery } from "@/lib/queries";
+import { AdminDeletePhotoButton } from "@/components/site/AdminDeletePhotoButton";
 
 export const Route = createFileRoute("/gallery/$slug")({
   head: ({ params }) => {
@@ -62,7 +63,8 @@ function Album() {
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {images.map((image) => (
-                <figure key={image.id} className="overflow-hidden rounded-xl shadow-card">
+                <figure key={image.id} className="relative overflow-hidden rounded-xl shadow-card">
+                  <AdminDeletePhotoButton imageId={image.id} />
                   <a href={image.image_url} target="_blank" rel="noopener noreferrer" aria-label={`Open original photo${image.caption ? `: ${image.caption}` : ""}`} className="block focus-visible:ring-2 focus-visible:ring-ring">
                     <img
                       src={image.image_url}
