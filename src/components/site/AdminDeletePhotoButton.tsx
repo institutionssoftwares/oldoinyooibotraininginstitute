@@ -25,7 +25,10 @@ function Inner({ userId, imageId }: { userId: string; imageId: string }) {
     setBusy(true);
     const { error } = await supabase.from("gallery_images").delete().eq("id", imageId);
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Photo deleted");
     qc.invalidateQueries();
   };
