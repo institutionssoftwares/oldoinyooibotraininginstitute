@@ -74,8 +74,8 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className="container-page flex h-18 items-center justify-between gap-4 py-2">
-        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+      <div className="container-page grid min-h-18 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-2">
+        <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
           <img
             src={logo.url}
             alt="Oldoinyo Oibor Training Institute crest"
@@ -83,48 +83,51 @@ export function SiteHeader() {
             width={48}
             height={48}
           />
-          <span className="leading-tight">
-            <span className="block font-display text-sm font-bold uppercase tracking-wide text-foreground sm:text-base">
+          <span className="min-w-0 leading-tight">
+            <span className="block font-display text-sm font-bold uppercase text-foreground sm:text-base">
               Oldoinyo Oibor
             </span>
-            <span className="block text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+            <span className="block text-[11px] uppercase text-muted-foreground">
               Training Institute
             </span>
           </span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-1 xl:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              activeProps={{ className: "text-foreground bg-secondary" }}
-              activeOptions={{ exact: link.to === "/" }}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="hidden items-center gap-2 lg:flex">
-          {adminButton("sm")}
-          {portalButton("sm")}
-          <Button asChild variant="gold" size="sm">
+        <div className="flex shrink-0 items-center gap-2">
+          <div className="hidden shrink-0 items-center gap-2 lg:flex">
+            {adminButton("sm")}
+            {portalButton("sm")}
+          </div>
+          <Button asChild variant="gold" size="sm" className="hidden shrink-0 sm:inline-flex">
             <Link to="/apply">Apply Now</Link>
           </Button>
-        </div>
-
-        <button
+        <Button
           type="button"
+          variant="outline"
+          size="icon"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex size-10 items-center justify-center rounded-md border border-border xl:hidden"
+          className="shrink-0 xl:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+        </Button>
+        </div>
       </div>
+
+      <nav aria-label="Main" className="container-page hidden flex-wrap items-center gap-1 border-t border-border/70 py-1 xl:flex">
+        {NAV_LINKS.map((link) => (
+          <Link
+            key={link.to}
+            to={link.to}
+            className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            activeProps={{ className: "text-foreground bg-secondary" }}
+            activeOptions={{ exact: link.to === "/" }}
+          >
+            {link.label}
+          </Link>
+        ))}
+      </nav>
 
       {open ? (
         <div className="border-t border-border bg-background xl:hidden">
@@ -139,7 +142,7 @@ export function SiteHeader() {
                 {link.label}
               </Link>
             ))}
-            <div className="mt-2 flex flex-wrap gap-2 [&>*]:flex-1">
+            <div className="mt-2 grid gap-2 sm:grid-cols-2">
               {adminButton("default")}
               {portalButton("default")}
               <Button asChild variant="gold">
