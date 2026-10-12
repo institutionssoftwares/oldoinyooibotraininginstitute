@@ -1,9 +1,23 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Mail, MapPin, Phone, Youtube } from "lucide-react";
 
 import logo from "@/assets/ooti-logo.asset.json";
 import euspanLogo from "@/assets/euspan-logo.asset.json";
-import { INSTITUTION } from "@/lib/site";
+import { INSTITUTION, SOCIAL_LINKS } from "@/lib/site";
+
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.31-2.83c.3-.04.6-.04.9 0V9.25a6.34 6.34 0 0 0-5.46 6.29 6.34 6.34 0 0 0 12.27 2.28V9.55a8.22 8.22 0 0 0 4.82 1.54V7.63a4.83 4.83 0 0 1-3-1.94Z" />
+    </svg>
+  );
+}
+
+const socialIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  Facebook,
+  TikTok: TikTokIcon,
+  YouTube: Youtube,
+};
 
 const quickLinks = [
   { label: "About OOTI", to: "/about" },
