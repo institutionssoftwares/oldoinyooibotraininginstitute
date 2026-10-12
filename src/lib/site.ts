@@ -1,5 +1,20 @@
 export const SITE_URL = "https://oldoinyooibortraininginstitute.co.ke";
 
+export const SOCIAL_LINKS = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/p/Oldoinyo-Oibor-TrainingInstitute-61579321659348/",
+  },
+  {
+    label: "TikTok",
+    href: "https://www.tiktok.com/@oldoinyooibortraining?_r=1&_t=ZS-9AUCe3u2pk7",
+  },
+  {
+    label: "YouTube",
+    href: "https://youtube.com/@oldoinyooibortraininginstitute",
+  },
+] as const;
+
 export const INSTITUTION = {
   name: "Oldoinyo Oibor Training Institute",
   shortName: "OOTI",
