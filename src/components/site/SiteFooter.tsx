@@ -104,13 +104,35 @@ export function SiteFooter() {
                 {INSTITUTION.phone}
               </a>
             </li>
-            <li className="flex gap-2">
-              <Mail className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
-              <a href={`mailto:${INSTITUTION.email}`} className="break-all opacity-85 hover:opacity-100">
-                {INSTITUTION.email}
-              </a>
-            </li>
-          </ul>
+              <li className="flex gap-2">
+                <Mail className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+                <a href={`mailto:${INSTITUTION.email}`} className="break-all opacity-85 hover:opacity-100">
+                  {INSTITUTION.email}
+                </a>
+              </li>
+            </ul>
+            <div className="mt-5">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-gold">Follow us</h3>
+              <ul className="mt-3 flex gap-3">
+                {SOCIAL_LINKS.map((s) => {
+                  const Icon = socialIcons[s.label];
+                  return (
+                    <li key={s.label}>
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${s.label} (opens in a new tab)`}
+                        title={s.label}
+                        className="flex size-10 items-center justify-center rounded-full border border-navy-foreground/25 bg-white/5 transition-colors hover:border-gold hover:bg-gold/10 hover:text-gold"
+                      >
+                        {Icon ? <Icon className="size-5" /> : <span className="text-xs font-semibold">{s.label}</span>}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
         </div>
       </div>
 
